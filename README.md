@@ -14,7 +14,7 @@ Enterprise-grade Vue 3 application implementing Clean Architecture with MVVM + I
 | **Navigation** | 10/10 | Type-safe NavGraph pattern with compile-time checks |
 | **DI Container** | 10/10 | InversifyJS with interface-based injection |
 | **Error Handling** | 10/10 | Global boundaries + structured error types |
-| **Testing** | 10/10 | 542 tests, 90%+ coverage thresholds |
+| **Testing** | 10/10 | 792 tests, 95%+ coverage thresholds |
 | **i18n** | 10/10 | 6 languages with interpolation support |
 | **Offline-First** | 10/10 | Network-aware with sync queue |
 
@@ -248,13 +248,15 @@ npm run build
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start dev server (port 4200) |
+| `npm run dev` | Start dev server |
 | `npm run build` | Build for production |
 | `npm run preview` | Preview production build |
 | `npm test` | Run tests in watch mode |
 | `npm run test:run` | Run tests once |
-| `npm run test:coverage` | Run tests with coverage |
+| `npm run test:coverage` | Run tests with coverage report |
 | `npm run test:ui` | Open Vitest UI |
+| `npm run lint` | Lint and fix code |
+| `npm run format` | Format code with Prettier |
 
 ## Configuration
 
@@ -279,17 +281,50 @@ import { UserListPage } from '@/presentation/features/users/UserListPage.vue'
 import { apiService } from '@/data/api/api.service'
 ```
 
-### Test Coverage Thresholds
+### Test Coverage
+
+**Current Coverage (792 tests):**
+
+| Metric | Actual | Threshold |
+|--------|--------|-----------|
+| Statements | 97.44% | 95% |
+| Branches | 93.34% | 90% |
+| Functions | 87.41% | 85% |
+| Lines | 97.44% | 95% |
 
 ```javascript
+// vitest.config.ts
 coverage: {
   thresholds: {
-    statements: 90,
-    branches: 85,
-    functions: 80,
-    lines: 90
+    statements: 95,
+    branches: 90,
+    functions: 85,
+    lines: 95
   }
 }
+```
+
+**Test Structure:**
+```
+tests/
+├── data/
+│   ├── api/                    # API service tests
+│   ├── cache/                  # Cache layer tests
+│   ├── mappers/                # DTO mapper tests
+│   └── repositories/           # Repository tests
+├── domain/
+│   ├── services/               # Business logic tests
+│   └── validators/             # Validation tests
+├── presentation/
+│   ├── components/             # Component tests
+│   │   ├── error/              # Error boundary tests
+│   │   ├── form/               # Form component tests
+│   │   ├── layout/             # Layout component tests
+│   │   └── shared/             # Shared component tests
+│   ├── features/               # Feature page tests
+│   └── view-models/            # ViewModel tests
+├── router/                     # Router tests
+└── setup.ts                    # Test setup
 ```
 
 ## Security Features

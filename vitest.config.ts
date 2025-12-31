@@ -25,13 +25,14 @@ export default defineConfig({
         'src/App.vue',
         'src/vite-env.d.ts',
         'src/data/dtos/**/*.ts',
-        'src/domain/entities/user.entity.ts'
+        'src/domain/entities/user.entity.ts',
+        'src/data/repositories/interfaces/**/*.ts'
       ],
       thresholds: {
-        statements: 90,
-        branches: 85,
-        functions: 80,
-        lines: 90
+        statements: 95,
+        branches: 90,
+        functions: 85,
+        lines: 95
       }
     },
     setupFiles: ['./tests/setup.ts']
