@@ -13,8 +13,14 @@ import LoadingSpinner from '@/presentation/components/shared/LoadingSpinner.vue'
 import ConfirmationDialog from '@/presentation/components/shared/ConfirmationDialog.vue'
 import AlertMessage from '@/presentation/components/shared/AlertMessage.vue'
 import { FormSearchInput } from '@/presentation/components/form'
+import type { User } from '@/domain/entities/user.entity'
 
 const { t } = useI18n()
+
+// Row click navigates to detail
+function onRowClick(user: User) {
+  inputs.viewUser(user)
+}
 
 // ============================================================================
 // VIEWMODEL SETUP
@@ -137,7 +143,12 @@ onUnmounted(() => {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in outputs.users.value" :key="user.id">
+              <tr
+                v-for="user in outputs.users.value"
+                :key="user.id"
+                class="user-row"
+                @click="onRowClick(user)"
+              >
                 <td class="text-muted">#{{ user.id }}</td>
                 <td>
                   <div class="d-flex align-items-center gap-3">
@@ -155,7 +166,7 @@ onUnmounted(() => {
                 </td>
                 <td>{{ user.email }}</td>
                 <td>
-                  <div class="btn-group btn-group-sm">
+                  <div class="btn-group btn-group-sm" @click.stop>
                     <button
                       class="btn btn-outline-primary"
                       :title="t('common.view')"
@@ -233,8 +244,17 @@ onUnmounted(() => {
       @confirm="inputs.executeDelete"
       @cancel="inputs.cancelDelete"
     />
+
   </div>
 </template>
 
 <style scoped>
+.user-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.user-row:hover {
+  background-color: #f8f9fa;
+}
 </style>
