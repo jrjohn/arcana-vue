@@ -67,6 +67,11 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.analytics': 'Analytics',
     'nav.settings': 'Settings',
     'nav.logout': 'Logout',
+    'nav.documents': 'Documents',
+    'nav.profile': 'Profile',
+    'nav.help': 'Help',
+    'nav.main.menu': 'Main Menu',
+    'sidebar.storage': 'Storage',
 
     // User module
     'user.list.title': 'User Management',
@@ -181,6 +186,11 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.analytics': '分析',
     'nav.settings': '设置',
     'nav.logout': '退出登录',
+    'nav.documents': '文档',
+    'nav.profile': '个人资料',
+    'nav.help': '帮助',
+    'nav.main.menu': '主菜单',
+    'sidebar.storage': '存储',
 
     // User module
     'user.list.title': '用户管理',
@@ -295,6 +305,11 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.analytics': '分析',
     'nav.settings': '設定',
     'nav.logout': '登出',
+    'nav.documents': '文件',
+    'nav.profile': '個人資料',
+    'nav.help': '幫助',
+    'nav.main.menu': '主選單',
+    'sidebar.storage': '儲存空間',
 
     // User module
     'user.list.title': '使用者管理',
@@ -409,6 +424,11 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.analytics': 'Análisis',
     'nav.settings': 'Configuración',
     'nav.logout': 'Cerrar sesión',
+    'nav.documents': 'Documentos',
+    'nav.profile': 'Perfil',
+    'nav.help': 'Ayuda',
+    'nav.main.menu': 'Menú Principal',
+    'sidebar.storage': 'Almacenamiento',
 
     // User module
     'user.list.title': 'Gestión de usuarios',
@@ -523,6 +543,11 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.analytics': 'Analyse',
     'nav.settings': 'Paramètres',
     'nav.logout': 'Déconnexion',
+    'nav.documents': 'Documents',
+    'nav.profile': 'Profil',
+    'nav.help': 'Aide',
+    'nav.main.menu': 'Menu Principal',
+    'sidebar.storage': 'Stockage',
 
     // User module
     'user.list.title': 'Gestion des utilisateurs',
@@ -637,6 +662,11 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.analytics': 'Analyse',
     'nav.settings': 'Einstellungen',
     'nav.logout': 'Abmelden',
+    'nav.documents': 'Dokumente',
+    'nav.profile': 'Profil',
+    'nav.help': 'Hilfe',
+    'nav.main.menu': 'Hauptmenü',
+    'sidebar.storage': 'Speicher',
 
     // User module
     'user.list.title': 'Benutzerverwaltung',

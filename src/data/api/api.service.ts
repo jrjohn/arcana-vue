@@ -10,7 +10,8 @@ const API_CONFIG = {
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    'Accept': 'application/json',
+    'x-api-key': import.meta.env.VITE_API_KEY || ''
   }
 }
 
