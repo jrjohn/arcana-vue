@@ -8,6 +8,3 @@ import ErrorBoundary from '@/presentation/components/error/ErrorBoundary.vue'
     <RouterView />
   </ErrorBoundary>
 </template>
-
-<style scoped>
-</style>

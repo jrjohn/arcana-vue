@@ -131,6 +131,7 @@ onMounted(async () => {
           <div class="card-body p-0">
             <div class="table-responsive">
               <table class="table table-hover mb-0">
+                <caption>Recent Users</caption>
                 <thead>
                   <tr>
                     <th>User</th>
@@ -195,6 +196,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>

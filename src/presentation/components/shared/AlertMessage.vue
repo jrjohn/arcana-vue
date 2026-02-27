@@ -36,6 +36,3 @@ const icons = {
     ></button>
   </div>
 </template>
-
-<style scoped>
-</style>

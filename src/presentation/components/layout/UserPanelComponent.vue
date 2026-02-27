@@ -17,6 +17,3 @@ const user = {
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>
