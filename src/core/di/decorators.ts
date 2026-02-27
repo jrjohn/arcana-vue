@@ -16,7 +16,8 @@ import type {
   INetworkStatus,
   IUserValidator,
   IUserMapper,
-  IUserRepository
+  IUserRepository,
+  IUserDao
 } from './types'
 
 /**
@@ -55,6 +56,10 @@ export function useLruCache(): ILruCacheManager {
 
 export function useIndexedDb(): IIndexedDbService {
   return container.get<IIndexedDbService>(TOKENS.IndexedDbService)
+}
+
+export function useUserDao(): IUserDao {
+  return container.get<IUserDao>(TOKENS.UserDao)
 }
 
 export function useUserRepository(): IUserRepository {

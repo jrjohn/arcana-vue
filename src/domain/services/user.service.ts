@@ -1,12 +1,28 @@
 import { ref, computed } from 'vue'
 import type { User, UserListResult, CreateUserInput, UpdateUserInput, CreatedUser, UpdatedUser } from '@/domain/entities/user.entity'
-import { userRepository } from '@/data/repositories/user.repository'
 import { userValidator } from '@/domain/validators/user.validator'
 import type { ValidationResult } from '@/domain/validators/user.validator'
+import type { IUserRepository } from '@/repository/interfaces/user.repository'
+// NOTE: This ES-module import creates a circular reference with container.ts
+// (container → user.service → decorators → container), but it is safe because
+// `useUserRepository()` is only *called* at request-time, after all modules
+// have finished evaluating and the container is fully initialised.
+import { useUserRepository } from '@/core/di/decorators'
 
 /**
- * User service - Business logic layer for user operations
- * Implements the domain layer in Clean Architecture
+ * Returns the registered IUserRepository from the InversifyJS container.
+ * Always called lazily (inside method bodies) — never at module load time.
+ */
+function getRepository(): IUserRepository {
+  return useUserRepository()
+}
+
+/**
+ * User service — Business logic layer for user operations.
+ * Implements the domain layer in Clean Architecture.
+ *
+ * The concrete repository implementation is never imported here;
+ * it is resolved through the InversifyJS container via {@link getRepository}.
  */
 export function useUserService() {
   const isLoading = ref(false)
@@ -20,7 +36,7 @@ export function useUserService() {
     error.value = null
 
     try {
-      return await userRepository.getUsers(page)
+      return await getRepository().getUsers(page)
     } catch (err) {
       error.value = err instanceof Error ? err : new Error('Failed to fetch users')
       throw error.value
@@ -37,7 +53,7 @@ export function useUserService() {
     error.value = null
 
     try {
-      return await userRepository.getUserById(id)
+      return await getRepository().getUserById(id)
     } catch (err) {
       error.value = err instanceof Error ? err : new Error('Failed to fetch user')
       throw error.value
@@ -50,7 +66,6 @@ export function useUserService() {
    * Create a new user
    */
   async function createUser(input: CreateUserInput): Promise<CreatedUser> {
-    // Validate input
     const validation = userValidator.validateCreateInput(input)
     if (!validation.isValid) {
       throw new Error(validation.errors.join(', '))
@@ -60,7 +75,7 @@ export function useUserService() {
     error.value = null
 
     try {
-      return await userRepository.createUser(input)
+      return await getRepository().createUser(input)
     } catch (err) {
       error.value = err instanceof Error ? err : new Error('Failed to create user')
       throw error.value
@@ -73,7 +88,6 @@ export function useUserService() {
    * Update an existing user
    */
   async function updateUser(id: number, input: UpdateUserInput): Promise<UpdatedUser> {
-    // Validate input
     const validation = userValidator.validateUpdateInput(input)
     if (!validation.isValid) {
       throw new Error(validation.errors.join(', '))
@@ -83,7 +97,7 @@ export function useUserService() {
     error.value = null
 
     try {
-      return await userRepository.updateUser(id, input)
+      return await getRepository().updateUser(id, input)
     } catch (err) {
       error.value = err instanceof Error ? err : new Error('Failed to update user')
       throw error.value
@@ -100,7 +114,7 @@ export function useUserService() {
     error.value = null
 
     try {
-      await userRepository.deleteUser(id)
+      await getRepository().deleteUser(id)
     } catch (err) {
       error.value = err instanceof Error ? err : new Error('Failed to delete user')
       throw error.value
@@ -117,7 +131,7 @@ export function useUserService() {
     error.value = null
 
     try {
-      const result = await userRepository.getUsers(page)
+      const result = await getRepository().getUsers(page)
 
       if (!query.trim()) {
         return result
@@ -174,5 +188,5 @@ export function useUserService() {
   }
 }
 
-// Export singleton instance
+// Export singleton instance — resolved lazily so container can be set up first
 export const userService = useUserService()

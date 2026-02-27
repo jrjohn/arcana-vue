@@ -14,6 +14,7 @@ import type {
   UpdatedUser
 } from '@/domain/entities/user.entity'
 import type { IUserRepository } from '@/data/repositories/interfaces'
+import type { IUserDao } from '@/dao/interfaces/user.dao'
 
 /**
  * API Service Interface
@@ -224,5 +225,6 @@ export interface II18nService {
   getAvailableLanguages(): string[]
 }
 
-// Re-export repository interface
+// Re-export repository and DAO interfaces
 export type { IUserRepository }
+export type { IUserDao }

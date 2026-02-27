@@ -22,7 +22,7 @@ import {
   createSelectionState
 } from './base.view-model'
 import { userService } from '@/domain/services/user.service'
-import { userRepository } from '@/data/repositories/user.repository'
+import { useUserRepository } from '@/core/di/decorators'
 import { useI18n } from '@/domain/services/i18n.service'
 import type { User } from '@/domain/entities/user.entity'
 
@@ -178,7 +178,8 @@ export function useUserListViewModel() {
 
   async function prefetchNextPage(): Promise<void> {
     if (pagination.hasNextPage.value) {
-      await userRepository.prefetchUsers([pagination.currentPage.value + 1])
+      // Resolved via DI so that the concrete implementation is never imported directly
+      await useUserRepository().prefetchUsers([pagination.currentPage.value + 1])
     }
   }
 

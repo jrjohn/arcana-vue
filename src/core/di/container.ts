@@ -12,13 +12,16 @@ import { apiService } from '@/data/api/api.service'
 import { memoryCache } from '@/data/cache/memory-cache.service'
 import { lruCache } from '@/data/cache/lru-cache.service'
 import { indexedDbService } from '@/data/cache/indexed-db.service'
-import { userRepository } from '@/data/repositories/user.repository'
 import { userMapper } from '@/data/mappers/user.mapper'
 import { userService } from '@/domain/services/user.service'
 import { errorHandler } from '@/domain/services/error-handler.service'
 import { sanitizationService } from '@/domain/services/sanitization.service'
 import { networkStatus } from '@/domain/services/network-status.service'
 import { userValidator } from '@/domain/validators/user.validator'
+
+// Import new DAO and Repository layer
+import { UserDaoImpl } from '@/dao/impl/user.dao.impl'
+import { UserRepositoryImpl } from '@/repository/impl/user.repository.impl'
 
 // Import interfaces
 import type {
@@ -32,7 +35,8 @@ import type {
   INetworkStatus,
   IUserValidator,
   IUserMapper,
-  IUserRepository
+  IUserRepository,
+  IUserDao
 } from './types'
 
 /**
@@ -49,8 +53,15 @@ function createContainer(): Container {
   container.bind<ILruCacheManager>(TOKENS.LruCache).toConstantValue(lruCache)
   container.bind<IIndexedDbService>(TOKENS.IndexedDbService).toConstantValue(indexedDbService)
 
+  // Bind Data Layer - DAO (wraps apiService; no caching, no domain mapping)
+  const userDao = new UserDaoImpl(apiService)
+  container.bind<IUserDao>(TOKENS.UserDao).toConstantValue(userDao)
+
   // Bind Data Layer - Repositories & Mappers
-  container.bind<IUserRepository>(TOKENS.UserRepository).toConstantValue(userRepository)
+  // UserRepositoryImpl formally implements IUserRepository and delegates HTTP
+  // access to IUserDao, keeping all HTTP concerns in the DAO layer.
+  const userRepositoryImpl = new UserRepositoryImpl(userDao)
+  container.bind<IUserRepository>(TOKENS.UserRepository).toConstantValue(userRepositoryImpl)
   container.bind<IUserMapper>(TOKENS.UserMapper).toConstantValue(userMapper)
 
   // Bind Domain Layer - Services
@@ -106,7 +117,12 @@ export function resetContainer(): void {
   container.bind<ICacheManager>(TOKENS.MemoryCache).toConstantValue(memoryCache)
   container.bind<ILruCacheManager>(TOKENS.LruCache).toConstantValue(lruCache)
   container.bind<IIndexedDbService>(TOKENS.IndexedDbService).toConstantValue(indexedDbService)
-  container.bind<IUserRepository>(TOKENS.UserRepository).toConstantValue(userRepository)
+
+  // Re-bind DAO and Repository
+  const freshUserDao = new UserDaoImpl(apiService)
+  container.bind<IUserDao>(TOKENS.UserDao).toConstantValue(freshUserDao)
+  container.bind<IUserRepository>(TOKENS.UserRepository).toConstantValue(new UserRepositoryImpl(freshUserDao))
+
   container.bind<IUserMapper>(TOKENS.UserMapper).toConstantValue(userMapper)
   container.bind<IUserService>(TOKENS.UserService).toConstantValue(userService)
   container.bind<IErrorHandler>(TOKENS.ErrorHandler).toConstantValue(errorHandler)

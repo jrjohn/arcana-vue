@@ -10,6 +10,9 @@ export const TOKENS = {
   LruCache: Symbol.for('LruCache'),
   IndexedDbService: Symbol.for('IndexedDbService'),
 
+  // Data Layer - DAO
+  UserDao: Symbol.for('UserDao'),
+
   // Data Layer - Repositories
   UserRepository: Symbol.for('UserRepository'),
 

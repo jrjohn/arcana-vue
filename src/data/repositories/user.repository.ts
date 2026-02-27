@@ -4,6 +4,7 @@ import { memoryCache } from '@/data/cache/memory-cache.service'
 import { lruCache } from '@/data/cache/lru-cache.service'
 import { indexedDbService } from '@/data/cache/indexed-db.service'
 import { networkStatus } from '@/domain/services/network-status.service'
+import type { IUserRepository } from '@/data/repositories/interfaces/user.repository'
 import type {
   UsersListResponseDto,
   UserResponseDto,
@@ -35,7 +36,7 @@ const CACHE_KEYS = {
  * Layer 3: IndexedDB (10-50ms) - Offline persistence
  * Layer 4: API (100-500ms+) - Source of truth
  */
-export const userRepository = {
+export const userRepository: IUserRepository = {
   /**
    * Get paginated list of users with 4-layer caching
    */
