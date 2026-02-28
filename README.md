@@ -399,3 +399,221 @@ if (!networkStatus.isOnline.value) {
 ## License
 
 MIT
+
+## 部署指南
+
+本章節說明如何將 Arcana Vue 應用程式部署到生產環境，提供三種常見部署方式。
+
+### 建置應用程式
+
+所有部署方式均需先執行生產建置：
+
+```bash
+npm run build
+```
+
+建置產出位於 `dist/` 目錄。
+
+---
+
+### 1. 單機部署（Nginx）
+
+**步驟：**
+
+```bash
+# 1. 建置應用程式
+npm run build
+
+# 2. 複製檔案到 Web 根目錄
+sudo cp -r dist/* /var/www/arcana-vue/
+```
+
+**Nginx 設定（`/etc/nginx/sites-available/arcana-vue`）：**
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+    root /var/www/arcana-vue;
+    index index.html;
+
+    # 支援 Vue Router History 模式（SPA 路由）
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # 靜態資源快取
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # 安全標頭
+    add_header X-Frame-Options "DENY";
+    add_header X-Content-Type-Options "nosniff";
+    add_header X-XSS-Protection "1; mode=block";
+}
+```
+
+```bash
+# 啟用站台設定
+sudo ln -s /etc/nginx/sites-available/arcana-vue /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+---
+
+### 2. Docker 部署
+
+**Dockerfile（多階段建置）：**
+
+```dockerfile
+# ── Stage 1: Build ──────────────────────────────────────────
+FROM node:22-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ── Stage 2: Serve ──────────────────────────────────────────
+FROM nginx:alpine
+
+# 複製建置產出
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# 自訂 Nginx 設定（支援 SPA 路由）
+RUN echo 'server { \
+    listen 80; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+**建置與執行：**
+
+```bash
+# 建置映像
+docker build -t arcana-vue:latest .
+
+# 執行容器
+docker run -d -p 8080:80 --name arcana-vue arcana-vue:latest
+
+# 開啟瀏覽器：http://localhost:8080
+```
+
+**Docker Compose（`docker-compose.yml`）：**
+
+```yaml
+version: '3.8'
+
+services:
+  arcana-vue:
+    build: .
+    image: arcana-vue:latest
+    container_name: arcana-vue
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+```
+
+```bash
+# 啟動服務
+docker compose up -d
+
+# 查看日誌
+docker compose logs -f
+
+# 停止服務
+docker compose down
+```
+
+---
+
+### 3. Kubernetes 部署
+
+建立以下 YAML 檔案（`k8s-arcana-vue.yaml`）：
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arcana-vue
+  labels:
+    app: arcana-vue
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: arcana-vue
+  template:
+    metadata:
+      labels:
+        app: arcana-vue
+    spec:
+      containers:
+        - name: arcana-vue
+          image: arcana-vue:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: arcana-vue-service
+spec:
+  selector:
+    app: arcana-vue
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+```
+
+**部署指令：**
+
+```bash
+# 套用設定
+kubectl apply -f k8s-arcana-vue.yaml
+
+# 查看部署狀態
+kubectl get deployments
+kubectl get pods
+kubectl get services
+
+# 查看 Pod 日誌
+kubectl logs -l app=arcana-vue
+
+# 更新映像版本
+kubectl set image deployment/arcana-vue \
+  arcana-vue=arcana-vue:v2.0.0
+
+# 刪除部署
+kubectl delete -f k8s-arcana-vue.yaml
+```
+
+---
