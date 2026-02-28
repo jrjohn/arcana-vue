@@ -3,7 +3,7 @@
  */
 
 // Interface
-export type { IUserDao } from './interfaces/user.dao'
+export type { IUserDao } from './user.dao'
 
 // Implementation
 export { UserDaoImpl } from './impl/user.dao.impl'

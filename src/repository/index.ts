@@ -3,7 +3,7 @@
  */
 
 // Interface (forwarded from the canonical location)
-export type { IUserRepository } from './interfaces/user.repository'
+export type { IUserRepository } from './user.repository'
 
 // Implementation
 export { UserRepositoryImpl } from './impl/user.repository.impl'

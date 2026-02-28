@@ -14,7 +14,7 @@ import type {
   UpdatedUser
 } from '@/domain/entities/user.entity'
 import type { IUserRepository } from '@/data/repositories/interfaces'
-import type { IUserDao } from '@/dao/interfaces/user.dao'
+import type { IUserDao } from '@/dao/user.dao'
 
 /**
  * API Service Interface

@@ -11,8 +11,8 @@ import type {
   CreatedUser,
   UpdatedUser
 } from '@/domain/entities/user.entity'
-import type { IUserRepository } from '@/data/repositories/interfaces/user.repository'
-import type { IUserDao } from '@/dao/interfaces/user.dao'
+import type { IUserRepository } from '@/data/repositories/user.repository'
+import type { IUserDao } from '@/dao/user.dao'
 
 /**
  * Cache key helpers — kept identical to the legacy repository so that the

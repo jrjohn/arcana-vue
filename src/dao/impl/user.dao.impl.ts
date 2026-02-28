@@ -7,7 +7,7 @@ import type {
   UpdateUserRequestDto,
   UpdateUserResponseDto
 } from '@/data/dtos/user.dto'
-import type { IUserDao } from '@/dao/interfaces/user.dao'
+import type { IUserDao } from '@/dao/user.dao'
 
 /**
  * UserDaoImpl — Concrete Data Access Object for user HTTP operations.

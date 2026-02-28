@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import type { User, UserListResult, CreateUserInput, UpdateUserInput, CreatedUser, UpdatedUser } from '@/domain/entities/user.entity'
 import { userValidator } from '@/domain/validators/user.validator'
 import type { ValidationResult } from '@/domain/validators/user.validator'
-import type { IUserRepository } from '@/repository/interfaces/user.repository'
+import type { IUserRepository } from '@/repository/user.repository'
 // NOTE: This ES-module import creates a circular reference with container.ts
 // (container → user.service → decorators → container), but it is safe because
 // `useUserRepository()` is only *called* at request-time, after all modules
