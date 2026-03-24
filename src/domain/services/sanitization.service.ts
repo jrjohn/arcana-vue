@@ -73,7 +73,7 @@ export const sanitizationService = {
 
     return input
       .trim()
-      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // Remove control characters
+      .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '') // Remove control characters
       .replace(/\s+/g, ' ') // Normalize whitespace
   },
 
@@ -146,7 +146,7 @@ export const sanitizationService = {
     sanitized = sanitized.replace(/[\/\\]/g, '')
 
     // Remove null bytes
-    sanitized = sanitized.replace(/\x00/g, '')
+    sanitized = sanitized.replace(/\u0000/g, '')
 
     // Only allow safe characters
     sanitized = sanitized.replace(/[^a-zA-Z0-9._-]/g, '_')
