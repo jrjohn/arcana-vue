@@ -205,7 +205,7 @@ describe('SidebarComponent', () => {
 
     it('should render progress bar', () => {
       const wrapper = mountWithRouter()
-      expect(wrapper.find('.progress-bar').exists()).toBe(true)
+      expect(wrapper.find('progress.progress-sm').exists()).toBe(true)
     })
   })
 

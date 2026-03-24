@@ -129,7 +129,7 @@ export function useUserDetailViewModel() {
     try {
       const result = await userService.getUserById(sanitizedId)
       user.value = result
-    } catch (error) {
+    } catch {
       loading.setError(t('error.notFound'))
       effects.emit({ type: 'toast', payload: { message: t('error.notFound'), variant: 'error' } })
     } finally {
@@ -172,7 +172,7 @@ export function useUserDetailViewModel() {
       effects.emit({ type: 'toast', payload: { message: t('user.delete.success'), variant: 'success' } })
       effects.emit({ type: 'dialog', payload: { action: 'closeDelete' } })
       effects.emit({ type: 'navigation', payload: { route: 'list' } })
-    } catch (error) {
+    } catch {
       loading.setError(t('error.unknown'))
       effects.emit({ type: 'toast', payload: { message: t('error.unknown'), variant: 'error' } })
     } finally {

@@ -184,16 +184,7 @@ function getStatusClass(status: string): string {
             <div class="stat-value">4.2 GB / 10 GB</div>
           </div>
         </div>
-        <div class="progress" style="height: 4px;">
-          <div
-            class="progress-bar bg-primary"
-            role="progressbar"
-            style="width: 42%"
-            aria-valuenow="42"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
+        <progress class="progress-sm w-100" value="42" max="100">42%</progress>
       </div>
     </div>
   </aside>
@@ -211,5 +202,29 @@ function getStatusClass(status: string): string {
 
 .badge-dot.bg-danger {
   background-color: #dc3545;
+}
+
+.progress-sm {
+  height: 4px;
+  appearance: none;
+  border: none;
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+  display: block;
+}
+
+.progress-sm::-webkit-progress-bar {
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+}
+
+.progress-sm::-webkit-progress-value {
+  background-color: #0d6efd;
+  border-radius: 0.25rem;
+}
+
+.progress-sm::-moz-progress-bar {
+  background-color: #0d6efd;
+  border-radius: 0.25rem;
 }
 </style>

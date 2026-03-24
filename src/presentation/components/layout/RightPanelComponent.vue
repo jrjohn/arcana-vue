@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useI18n } from '@/domain/services/i18n.service'
 
 defineProps<{
   open: boolean
 }>()
 
 const emit = defineEmits<{
-  (e: 'close'): void
+  close: []
 }>()
 
-const { t } = useI18n()
 const activeTab = ref<'activity' | 'notifications' | 'settings'>('activity')
 
 const activities = [

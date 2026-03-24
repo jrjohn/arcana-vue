@@ -168,7 +168,7 @@ export function createFormModels<T extends object>(
     const field = fields[key]
     if (field) {
       models[key as keyof T] = field.model as Ref<T[keyof T]>
-      errors[key as keyof T] = field.error as Ref<string | null>
+      errors[key as keyof T] = field.error
     }
   }
 

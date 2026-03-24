@@ -818,10 +818,10 @@ const translations: Record<Language, Record<string, string>> = {
 const currentLanguage = ref<Language>(getStoredLanguage())
 
 function getStoredLanguage(): Language {
-  if (typeof window !== 'undefined') {
+  if (typeof globalThis.window !== 'undefined') {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored && isValidLanguage(stored)) {
-      return stored as Language
+      return stored
     }
   }
   return 'en'
@@ -840,11 +840,18 @@ export function translate(key: string, params?: Record<string, string | number>)
 
   if (params) {
     Object.entries(params).forEach(([paramKey, paramValue]) => {
-      text = text.replace(new RegExp(`\\{${paramKey}\\}`, 'g'), String(paramValue))
+      text = text.replaceAll(`{${paramKey}}`, String(paramValue))
     })
   }
 
   return text
+}
+
+function setLanguage(lang: Language) {
+  currentLanguage.value = lang
+  if (typeof globalThis.window !== 'undefined') {
+    localStorage.setItem(STORAGE_KEY, lang)
+  }
 }
 
 /**
@@ -856,13 +863,6 @@ export function useI18n() {
   const languageInfo = computed(() =>
     AVAILABLE_LANGUAGES.find(l => l.code === currentLanguage.value) ?? AVAILABLE_LANGUAGES[0]
   )
-
-  function setLanguage(lang: Language) {
-    currentLanguage.value = lang
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(STORAGE_KEY, lang)
-    }
-  }
 
   function t(key: string, params?: Record<string, string | number>): string {
     return translate(key, params)

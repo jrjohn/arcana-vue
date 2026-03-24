@@ -12,8 +12,8 @@ interface CacheEntry<T> {
 const DEFAULT_MAX_SIZE = 50
 
 export class MemoryCache<T> {
-  private cache: Map<string, CacheEntry<T>>
-  private maxSize: number
+  private readonly cache: Map<string, CacheEntry<T>>
+  private readonly maxSize: number
 
   constructor(maxSize: number = DEFAULT_MAX_SIZE) {
     this.cache = new Map()

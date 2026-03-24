@@ -55,7 +55,7 @@ function handleNavigation(payload: { route: 'list' | 'detail'; userId?: number }
 // ============================================================================
 
 onMounted(() => {
-  const id = route.params.id ? parseInt(route.params.id as string, 10) : null
+  const id = route.params.id ? Number.parseInt(route.params.id as string, 10) : null
   if (id) {
     inputs.initEditMode(id)
   } else {

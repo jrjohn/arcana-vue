@@ -58,7 +58,7 @@ const hasError = computed(() => error.value !== null && error.value !== '')
 const translatedError = computed(() => {
   if (!error.value) return ''
   const translated = t(error.value)
-  return translated !== error.value ? translated : error.value
+  return translated === error.value ? error.value : translated
 })
 </script>
 

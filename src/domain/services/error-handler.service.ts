@@ -63,7 +63,15 @@ export function useErrorHandler() {
         )
         break
       default:
-        if (!error.response) {
+        if (error.response) {
+          appError = createAppError(
+            ErrorCodes.UNKNOWN_ERROR,
+            error.message || 'Unknown error',
+            ErrorCategory.UNKNOWN,
+            'error.unknown',
+            { status }
+          )
+        } else {
           // Network error (no response)
           appError = createAppError(
             ErrorCodes.NETWORK_ERROR,
@@ -71,14 +79,6 @@ export function useErrorHandler() {
             ErrorCategory.NETWORK,
             'error.network',
             { originalMessage: error.message }
-          )
-        } else {
-          appError = createAppError(
-            ErrorCodes.UNKNOWN_ERROR,
-            error.message || 'Unknown error',
-            ErrorCategory.UNKNOWN,
-            'error.unknown',
-            { status }
           )
         }
     }

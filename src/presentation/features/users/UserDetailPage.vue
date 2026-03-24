@@ -57,13 +57,13 @@ function handleNavigation(payload: { route: 'list' | 'edit'; userId?: number }) 
 // ============================================================================
 
 onMounted(() => {
-  const id = parseInt(route.params.id as string, 10)
+  const id = Number.parseInt(route.params.id as string, 10)
   inputs.loadUser(id)
 })
 
 watch(() => route.params.id, (newId) => {
   if (newId) {
-    const id = parseInt(newId as string, 10)
+    const id = Number.parseInt(newId as string, 10)
     inputs.loadUser(id)
   }
 })
@@ -140,19 +140,19 @@ onUnmounted(() => {
           <div class="card-body">
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label text-muted">{{ t('user.detail.firstName') }}</label>
+                <span class="form-label text-muted d-block">{{ t('user.detail.firstName') }}</span>
                 <div class="fw-semibold">{{ outputs.user.value!.firstName }}</div>
               </div>
               <div class="col-md-6">
-                <label class="form-label text-muted">{{ t('user.detail.lastName') }}</label>
+                <span class="form-label text-muted d-block">{{ t('user.detail.lastName') }}</span>
                 <div class="fw-semibold">{{ outputs.user.value!.lastName }}</div>
               </div>
               <div class="col-12">
-                <label class="form-label text-muted">{{ t('user.detail.email') }}</label>
+                <span class="form-label text-muted d-block">{{ t('user.detail.email') }}</span>
                 <div class="fw-semibold">{{ outputs.user.value!.email }}</div>
               </div>
               <div class="col-12">
-                <label class="form-label text-muted">User ID</label>
+                <span class="form-label text-muted d-block">User ID</span>
                 <div class="fw-semibold">#{{ outputs.user.value!.id }}</div>
               </div>
             </div>

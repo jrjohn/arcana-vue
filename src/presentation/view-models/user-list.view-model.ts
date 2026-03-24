@@ -164,7 +164,7 @@ export function useUserListViewModel() {
         total: result.total,
         perPage: result.perPage
       })
-    } catch (error) {
+    } catch {
       loading.setError(t('error.network'))
       effects.emit({ type: 'toast', payload: { message: t('error.network'), variant: 'error' } })
     } finally {
@@ -202,7 +202,7 @@ export function useUserListViewModel() {
         total: result.total,
         perPage: result.perPage
       })
-    } catch (error) {
+    } catch {
       loading.setError(t('error.network'))
     } finally {
       loading.setLoading(false)
@@ -266,7 +266,7 @@ export function useUserListViewModel() {
       effects.emit({ type: 'dialog', payload: { action: 'closeDelete' } })
 
       await loadUsers(pagination.currentPage.value)
-    } catch (error) {
+    } catch {
       loading.setError(t('error.unknown'))
       effects.emit({ type: 'toast', payload: { message: t('error.unknown'), variant: 'error' } })
     } finally {

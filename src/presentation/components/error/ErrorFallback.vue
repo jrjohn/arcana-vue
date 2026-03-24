@@ -41,11 +41,11 @@ function handleRetry(): void {
 }
 
 function handleReload(): void {
-  window.location.reload()
+  globalThis.location.reload()
 }
 
 function handleGoHome(): void {
-  window.location.href = '/'
+  globalThis.location.href = '/'
 }
 </script>
 

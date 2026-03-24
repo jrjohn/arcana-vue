@@ -27,7 +27,7 @@ export const userValidator = {
    * Validate name field
    */
   validateName(name: string): FieldValidation {
-    if (!name || !name.trim()) {
+    if (!name?.trim()) {
       return {
         isValid: false,
         error: 'Name is required',
@@ -68,7 +68,7 @@ export const userValidator = {
    * Validate job field
    */
   validateJob(job: string): FieldValidation {
-    if (!job || !job.trim()) {
+    if (!job?.trim()) {
       return {
         isValid: false,
         error: 'Job title is required',
@@ -109,7 +109,7 @@ export const userValidator = {
    * Validate email field
    */
   validateEmail(email: string): FieldValidation {
-    if (!email || !email.trim()) {
+    if (!email?.trim()) {
       return {
         isValid: false,
         error: 'Email is required',

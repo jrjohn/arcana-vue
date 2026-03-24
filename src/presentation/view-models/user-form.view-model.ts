@@ -227,7 +227,7 @@ export function useUserFormViewModel() {
         email: user.email,
         job: ''
       })
-    } catch (error) {
+    } catch {
       loading.setError(t('error.notFound'))
       effects.emit({ type: 'toast', payload: { message: t('error.notFound'), variant: 'error' } })
     } finally {
@@ -258,7 +258,7 @@ export function useUserFormViewModel() {
         effects.emit({ type: 'toast', payload: { message: t('user.form.createSuccess'), variant: 'success' } })
         effects.emit({ type: 'navigation', payload: { route: 'list' } })
       }
-    } catch (error) {
+    } catch {
       loading.setError(t('error.unknown'))
       effects.emit({ type: 'toast', payload: { message: t('error.unknown'), variant: 'error' } })
     } finally {

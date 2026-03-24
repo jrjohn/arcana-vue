@@ -80,11 +80,11 @@ export const errorBoundaryPlugin = {
         info,
         component: getComponentName(instance),
         timestamp: new Date(),
-        url: window.location.href
+        url: globalThis.location.href
       })
 
       // Dispatch custom event for error tracking integrations
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new CustomEvent('vue:error', {
           detail: { error: err, info, component: instance }
         })

@@ -13,8 +13,7 @@ import type {
   CreatedUser,
   UpdatedUser
 } from '@/domain/entities/user.entity'
-import type { IUserRepository } from '@/data/repositories/interfaces'
-import type { IUserDao } from '@/dao/user.dao'
+
 
 /**
  * API Service Interface
@@ -226,5 +225,5 @@ export interface II18nService {
 }
 
 // Re-export repository and DAO interfaces
-export type { IUserRepository }
-export type { IUserDao }
+export type { IUserRepository } from '@/data/repositories/user.repository'
+export type { IUserDao } from '@/dao/user.dao'

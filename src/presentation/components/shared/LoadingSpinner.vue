@@ -14,7 +14,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div v-if="overlay" class="loading-overlay">
+  <output v-if="overlay" class="loading-overlay">
     <div class="text-center">
       <div
         class="spinner-border text-primary"
@@ -22,25 +22,23 @@ const { t } = useI18n()
           'spinner-border-sm': size === 'sm',
           'spinner-border-lg': size === 'lg'
         }"
-        role="status"
       >
         <span class="visually-hidden">{{ t('common.loading') }}</span>
       </div>
       <div class="mt-2 text-muted">{{ t('common.loading') }}</div>
     </div>
-  </div>
-  <div v-else class="d-flex justify-content-center align-items-center py-4">
+  </output>
+  <output v-else class="d-flex justify-content-center align-items-center py-4">
     <div
       class="spinner-border text-primary"
       :class="{
         'spinner-border-sm': size === 'sm',
         'spinner-border-lg': size === 'lg'
       }"
-      role="status"
     >
       <span class="visually-hidden">{{ t('common.loading') }}</span>
     </div>
-  </div>
+  </output>
 </template>
 
 <style scoped>

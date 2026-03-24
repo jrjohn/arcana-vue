@@ -157,20 +157,6 @@ export function useUserService() {
     }
   }
 
-  /**
-   * Validate create user input
-   */
-  function validateCreateInput(input: CreateUserInput): ValidationResult {
-    return userValidator.validateCreateInput(input)
-  }
-
-  /**
-   * Validate update user input
-   */
-  function validateUpdateInput(input: UpdateUserInput): ValidationResult {
-    return userValidator.validateUpdateInput(input)
-  }
-
   return {
     // State
     isLoading: computed(() => isLoading.value),
@@ -186,6 +172,20 @@ export function useUserService() {
     validateCreateInput,
     validateUpdateInput
   }
+}
+
+/**
+ * Validate create user input
+ */
+function validateCreateInput(input: CreateUserInput): ValidationResult {
+  return userValidator.validateCreateInput(input)
+}
+
+/**
+ * Validate update user input
+ */
+function validateUpdateInput(input: UpdateUserInput): ValidationResult {
+  return userValidator.validateUpdateInput(input)
 }
 
 // Export singleton instance — resolved lazily so container can be set up first

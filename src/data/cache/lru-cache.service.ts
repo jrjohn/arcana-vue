@@ -14,9 +14,9 @@ const DEFAULT_MAX_SIZE = 100
 const DEFAULT_TTL = 5 * 60 * 1000 // 5 minutes
 
 export class LruCache<T> {
-  private cache: Map<string, LruEntry<T>>
-  private maxSize: number
-  private defaultTtl: number
+  private readonly cache: Map<string, LruEntry<T>>
+  private readonly maxSize: number
+  private readonly defaultTtl: number
 
   constructor(maxSize: number = DEFAULT_MAX_SIZE, defaultTtl: number = DEFAULT_TTL) {
     this.cache = new Map()

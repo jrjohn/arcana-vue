@@ -23,7 +23,7 @@ const DANGEROUS_HTML_PATTERNS = [
  */
 const SQL_INJECTION_PATTERNS = [
   /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|TRUNCATE|EXEC|UNION|DECLARE)\b)/gi,
-  /(['";]|\-\-|\/\*|\*\/)/g,
+  /(['";]|--|\/\*|\*\/)/g,
   /(\bOR\b\s+\d+\s*=\s*\d+)/gi,
   /(\bAND\b\s+\d+\s*=\s*\d+)/gi
 ]
@@ -56,11 +56,11 @@ export const sanitizationService = {
 
     // Encode remaining HTML entities
     sanitized = sanitized
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#x27;')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#x27;')
 
     return sanitized
   },
@@ -74,7 +74,7 @@ export const sanitizationService = {
     return input
       .trim()
       .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '') // NOSONAR — intentional control character removal
-      .replace(/\s+/g, ' ') // Normalize whitespace
+      .replaceAll(/\s+/g, ' ') // Normalize whitespace
   },
 
   /**
@@ -143,13 +143,13 @@ export const sanitizationService = {
     })
 
     // Remove directory separators
-    sanitized = sanitized.replace(/[\/\\]/g, '')
+    sanitized = sanitized.replaceAll(/[/\\]/g, '')
 
     // Remove null bytes
     sanitized = sanitized.replace(/\u0000/g, '') // NOSONAR — intentional null byte removal
 
     // Only allow safe characters
-    sanitized = sanitized.replace(/[^a-zA-Z0-9._-]/g, '_')
+    sanitized = sanitized.replaceAll(/[^a-zA-Z0-9._-]/g, '_')
 
     return sanitized
   },
@@ -182,7 +182,7 @@ export const sanitizationService = {
    * Sanitize object properties recursively
    */
   sanitizeObject<T extends Record<string, unknown>>(obj: T): T {
-    const sanitized = { ...obj } as T
+    const sanitized = { ...obj }
 
     for (const key of Object.keys(sanitized)) {
       const value = sanitized[key as keyof T]
@@ -192,13 +192,15 @@ export const sanitizationService = {
       } else if (value && typeof value === 'object' && !Array.isArray(value)) {
         (sanitized as Record<string, unknown>)[key] = this.sanitizeObject(value as Record<string, unknown>)
       } else if (Array.isArray(value)) {
-        (sanitized as Record<string, unknown>)[key] = value.map(item =>
-          typeof item === 'string'
-            ? this.sanitizeText(item)
-            : item && typeof item === 'object'
-              ? this.sanitizeObject(item as Record<string, unknown>)
-              : item
-        )
+        (sanitized as Record<string, unknown>)[key] = value.map(item => {
+          if (typeof item === 'string') {
+            return this.sanitizeText(item)
+          }
+          if (item && typeof item === 'object') {
+            return this.sanitizeObject(item as Record<string, unknown>)
+          }
+          return item
+        })
       }
     }
 
@@ -209,16 +211,16 @@ export const sanitizationService = {
    * Escape string for use in regex
    */
   escapeRegex(input: string): string {
-    return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    return input.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`)
   },
 
   /**
    * Validate and sanitize integer input
    */
   sanitizeInteger(input: string | number, min?: number, max?: number): number | null {
-    const num = typeof input === 'string' ? parseInt(input, 10) : input
+    const num = typeof input === 'string' ? Number.parseInt(input, 10) : input
 
-    if (isNaN(num)) return null
+    if (Number.isNaN(num)) return null
     if (min !== undefined && num < min) return null
     if (max !== undefined && num > max) return null
 

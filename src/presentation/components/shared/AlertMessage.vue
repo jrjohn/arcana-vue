@@ -6,7 +6,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'dismiss'): void
+  dismiss: []
 }>()
 
 const icons = {

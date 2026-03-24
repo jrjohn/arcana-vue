@@ -68,7 +68,7 @@ const translatedError = computed(() => {
   if (!error.value) return ''
   // Try to translate, fallback to raw message
   const translated = t(error.value)
-  return translated !== error.value ? translated : error.value
+  return translated === error.value ? error.value : translated
 })
 
 // ============================================================================
