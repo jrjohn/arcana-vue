@@ -27,7 +27,7 @@ function isPublicEndpoint(url: string | undefined): boolean {
  * Get stored auth token
  */
 function getAuthToken(): string | null {
-  if (typeof globalThis.window === 'undefined') return null
+  if (globalThis.window === undefined) return null
   return localStorage.getItem(TOKEN_KEY)
 }
 
@@ -69,7 +69,7 @@ export const authTokenManager = {
    * Set auth token
    */
   setToken(token: string): void {
-    if (typeof globalThis.window !== 'undefined') {
+    if (globalThis.window !== undefined) {
       localStorage.setItem(TOKEN_KEY, token)
     }
   },
@@ -85,7 +85,7 @@ export const authTokenManager = {
    * Remove auth token
    */
   removeToken(): void {
-    if (typeof globalThis.window !== 'undefined') {
+    if (globalThis.window !== undefined) {
       localStorage.removeItem(TOKEN_KEY)
     }
   },

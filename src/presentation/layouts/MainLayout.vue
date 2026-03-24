@@ -11,7 +11,7 @@ const rightPanelOpen = ref(false)
 
 // Check if mobile (for overlay)
 const isMobile = computed(() => {
-  if (typeof globalThis.window !== 'undefined') {
+  if (globalThis.window !== undefined) {
     return globalThis.innerWidth < 768
   }
   return false

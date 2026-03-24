@@ -818,7 +818,7 @@ const translations: Record<Language, Record<string, string>> = {
 const currentLanguage = ref<Language>(getStoredLanguage())
 
 function getStoredLanguage(): Language {
-  if (typeof globalThis.window !== 'undefined') {
+  if (globalThis.window !== undefined) {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored && isValidLanguage(stored)) {
       return stored
@@ -849,7 +849,7 @@ export function translate(key: string, params?: Record<string, string | number>)
 
 function setLanguage(lang: Language) {
   currentLanguage.value = lang
-  if (typeof globalThis.window !== 'undefined') {
+  if (globalThis.window !== undefined) {
     localStorage.setItem(STORAGE_KEY, lang)
   }
 }
