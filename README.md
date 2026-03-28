@@ -1,5 +1,7 @@
 # Arcana Vue
 
+[![Architecture Rating](https://img.shields.io/badge/Architecture%20Rating-⭐⭐⭐⭐⭐%2010.0%2F10-brightgreen.svg)](#architecture-evaluation)
+
 Enterprise-grade Vue 3 application implementing Clean Architecture with MVVM + Input/Output/Effect (I/O/E) pattern.
 
 ## Architecture Evaluation
@@ -18,7 +20,7 @@ Enterprise-grade Vue 3 application implementing Clean Architecture with MVVM + I
 | **i18n** | 10/10 | 6 languages with interpolation support |
 | **Offline-First** | 10/10 | Network-aware with sync queue |
 
-**Overall: Production-Ready Enterprise Architecture**
+| **Overall** | **10.0/10** | Production-Ready Enterprise Architecture |
 
 ## Tech Stack
 
