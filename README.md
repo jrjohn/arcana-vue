@@ -1,3 +1,9 @@
+<!-- agent-managed badges START -->
+[![Quality Gate](https://arcana.boo/sonarqube/api/project_badges/quality_gate?project=vue-app)](https://arcana.boo/sonarqube/dashboard?id=vue-app)
+[![Build](https://arcana.boo/jenkins/buildStatus/icon?job=vue-app-pipeline)](https://arcana.boo/jenkins/job/vue-app-pipeline/)
+**Rank**: Quality Gate `OK` · Build `blue` · Sonar coverage `93.7%`
+<!-- agent-managed badges END -->
+
 # Arcana Vue
 
 [![Architecture Rating](https://img.shields.io/badge/Architecture%20Rating-⭐⭐⭐⭐⭐%2010.0%2F10-brightgreen.svg)](#architecture-evaluation)
