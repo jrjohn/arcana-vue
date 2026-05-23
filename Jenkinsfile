@@ -74,22 +74,17 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
                     withSonarQubeEnv('SonarQube') {
-                        script {
-                            // PR builds get PR-decoration params so SonarQube
-                            // attaches the report to the GitHub PR instead of
-                            // overwriting the long-lived main branch report.
-                            def prArgs = env.CHANGE_ID ? """ \
-                                -Dsonar.pullrequest.key=${env.CHANGE_ID} \
-                                -Dsonar.pullrequest.branch=${env.BRANCH_NAME} \
-                                -Dsonar.pullrequest.base=${env.CHANGE_TARGET}""" : ''
-                            sh """sonar-scanner \
-                              -Dsonar.projectKey=vue-app \
-                              -Dsonar.projectName="Vue App" \
-                              -Dsonar.sources=src \
-                              -Dsonar.exclusions=node_modules/**,dist/** \
-                              -Dsonar.scm.disabled=true \
-                              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info${prArgs}"""
-                        }
+                        // SonarQube Community Build rejects sonar.pullrequest.*
+                        // (Developer Edition feature), so PR builds run a plain
+                        // scan without GitHub PR decoration. Quality issues
+                        // still surface — just not attached to the PR in the UI.
+                        sh """sonar-scanner \
+                          -Dsonar.projectKey=vue-app \
+                          -Dsonar.projectName="Vue App" \
+                          -Dsonar.sources=src \
+                          -Dsonar.exclusions=node_modules/**,dist/** \
+                          -Dsonar.scm.disabled=true \
+                          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info"""
                     }
                 }
             }
