@@ -64,16 +64,13 @@ pipeline {
 
         stage("Unit Tests") {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                    sh "docker compose -f docker-compose.test.yml run --rm --build test"
-                }
+                sh "docker compose -f docker-compose.test.yml run --rm --build test"
             }
         }
 
         stage("SonarQube Analysis") {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                    withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarQube') {
                         // SonarQube Community Build rejects sonar.pullrequest.*
                         // (Developer Edition feature), so PR builds run a plain
                         // scan without GitHub PR decoration. Quality issues
@@ -85,7 +82,6 @@ pipeline {
                           -Dsonar.exclusions=node_modules/**,dist/** \
                           -Dsonar.scm.disabled=true \
                           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info"""
-                    }
                 }
             }
         }
@@ -111,6 +107,39 @@ pipeline {
         stage("Image Info") {
             steps {
                 sh "docker images --format 'table {{.Repository}}:{{.Tag}}\\t{{.Size}}' | grep ${APP_NAME} || true"
+            }
+        }
+
+        stage("Strict Console Check") {
+            // L2 strict gate — fail build on any forbidden transient/error pattern in console.
+            // Patterns are infra-level signals we never want to treat as "green":
+            // network drops, OOM, dead daemons, missing tags, missing CLIs, k8s timeouts.
+            // Build-domain quality (test failures, sonar quality gate) is enforced by L1
+            // (catchError UNSTABLE removal — stage exits propagate).
+            steps {
+                script {
+                    def lines = currentBuild.rawBuild.getLog(20000)
+                    def log = lines.join('\n')
+                    def forbidden = [
+                        'Broken pipe',
+                        'Could not connect to Kotlin compile daemon',
+                        'Using fallback strategy: Compile without Kotlin daemon',
+                        'Remote host terminated the handshake',
+                        'tag does not exist',
+                        'docker: command not found',
+                        'failed to extract layer',
+                        'OutOfMemoryError',
+                        'Connection refused',
+                        'timed out waiting for the condition on pods',
+                        'failed to copy: httpReadSeeker'
+                    ]
+                    def hits = forbidden.findAll { p -> log.contains(p) }
+                    if (hits) {
+                        error "STRICT CHECK FAIL — forbidden console patterns: ${hits.join(', ')}"
+                    } else {
+                        echo "STRICT CHECK PASS — no forbidden console patterns in ${lines.size()} log lines"
+                    }
+                }
             }
         }
 
