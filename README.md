@@ -1,7 +1,7 @@
 <!-- agent-managed badges START -->
 [![Quality Gate](https://arcana.boo/sonarqube/api/project_badges/quality_gate?project=vue-app)](https://arcana.boo/sonarqube/dashboard?id=vue-app)
-[![Build](https://arcana.boo/jenkins/buildStatus/icon?job=vue-app-pipeline)](https://arcana.boo/jenkins/job/vue-app-pipeline/)
-**Rank**: Quality Gate `OK` · Build `blue` · Sonar coverage `93.7%`
+[![Build](https://arcana.boo/jenkins/buildStatus/icon?job=vue-app-pipeline-mb%2Fmain)](https://arcana.boo/jenkins/job/vue-app-pipeline-mb/job/main/)
+**Rank**: Quality Gate `ERROR` · Build `red` (last #4 FAILURE; #5 queued) · Sonar coverage `0.0%` (no lcov uploaded — 58 failing tests block coverage; see daily-ci-agent report)
 <!-- agent-managed badges END -->
 
 # Arcana Vue
