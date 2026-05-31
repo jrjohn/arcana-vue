@@ -64,7 +64,22 @@ pipeline {
 
         stage("Unit Tests") {
             steps {
-                sh "docker compose -f docker-compose.test.yml run --rm --build test"
+                // Run in a NAMED (not --rm) container so coverage can be copied out
+                // afterwards. Under DinD the compose bind mount resolves to a stray
+                // host path the Jenkins workspace never sees, so the lcov report is
+                // streamed back via `docker cp` instead — that lands it in the
+                // workspace where the SonarQube scanner reads coverage/lcov.info.
+                // The container exit code (vitest's) propagates so a test failure
+                // fails this stage.
+                sh '''
+                    docker rm -f vue-app-test 2>/dev/null || true
+                    docker compose -f docker-compose.test.yml run --name vue-app-test --build test
+                    rc=$?
+                    rm -rf coverage && mkdir -p coverage
+                    docker cp vue-app-test:/app/coverage/. coverage/ 2>/dev/null || true
+                    docker rm -f vue-app-test 2>/dev/null || true
+                    exit $rc
+                '''
             }
         }
 
