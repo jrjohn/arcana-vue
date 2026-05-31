@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { userRepository } from '@/data/repositories/user.repository'
+import { UserRepositoryImpl } from '@/repository/impl/user.repository.impl'
+import { UserDaoImpl } from '@/dao/impl/user.dao.impl'
+import type { IUserRepository } from '@/data/repositories/user.repository'
 import { apiService } from '@/data/api/api.service'
 import { memoryCache } from '@/data/cache/memory-cache.service'
 import { lruCache } from '@/data/cache/lru-cache.service'
@@ -41,8 +43,12 @@ describe('User Repository', () => {
     support: { url: 'https://example.com', text: 'Support' }
   }
 
+  let userRepository: IUserRepository
+
   beforeEach(async () => {
     vi.clearAllMocks()
+    // Build through current DI wiring: mocked apiService -> DAO -> repository.
+    userRepository = new UserRepositoryImpl(new UserDaoImpl(apiService))
     memoryCache.users.clear()
     lruCache.users.clear()
     await indexedDbService.clearAll()

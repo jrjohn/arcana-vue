@@ -3,7 +3,9 @@ import { mount, flushPromises } from '@vue/test-utils'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createPinia, setActivePinia } from 'pinia'
 import App from '@/App.vue'
-import { userRepository } from '@/data/repositories/user.repository'
+import { UserRepositoryImpl } from '@/repository/impl/user.repository.impl'
+import { UserDaoImpl } from '@/dao/impl/user.dao.impl'
+import type { IUserRepository } from '@/data/repositories/user.repository'
 import { indexedDbService } from '@/data/cache/indexed-db.service'
 import type { UsersListResponseDto, UserResponseDto, CreateUserResponseDto, UpdateUserResponseDto } from '@/data/dtos/user.dto'
 
@@ -54,10 +56,15 @@ describe('User Flow Integration Tests', () => {
   }
 
   let router: ReturnType<typeof createRouter>
+  let userRepository: IUserRepository
 
   beforeEach(async () => {
     vi.clearAllMocks()
     setActivePinia(createPinia())
+
+    // Build repository through the current DI wiring: apiService -> DAO -> repository.
+    // The apiService import is the vi.mock above, so the URL assertions still hold.
+    userRepository = new UserRepositoryImpl(new UserDaoImpl(apiService))
 
     // Clear caches
     await userRepository.clearAllCaches()

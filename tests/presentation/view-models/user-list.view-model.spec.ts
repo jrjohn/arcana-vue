@@ -11,14 +11,19 @@ vi.mock('@/domain/services/user.service', () => ({
   }
 }))
 
-vi.mock('@/data/repositories/user.repository', () => ({
+// The view-model resolves the repository (for prefetch) via useUserRepository()
+// from the DI container, so mock that resolver, not the interface-only module.
+const { userRepository } = vi.hoisted(() => ({
   userRepository: {
     prefetchUsers: vi.fn()
   }
 }))
 
+vi.mock('@/core/di/decorators', () => ({
+  useUserRepository: () => userRepository
+}))
+
 import { userService } from '@/domain/services/user.service'
-import { userRepository } from '@/data/repositories/user.repository'
 
 describe('useUserListViewModel', () => {
   const mockUsers = [
