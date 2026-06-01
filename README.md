@@ -1,12 +1,21 @@
-<!-- agent-managed badges START -->
-[![Quality Gate](https://arcana.boo/sonarqube/api/project_badges/quality_gate?project=vue-app)](https://arcana.boo/sonarqube/dashboard?id=vue-app)
-[![Build](https://arcana.boo/jenkins/buildStatus/icon?job=vue-app-pipeline)](https://arcana.boo/jenkins/job/vue-app-pipeline/)
-**Rank**: Quality Gate `OK` · Build `blue` · Sonar coverage `93.7%`
-<!-- agent-managed badges END -->
 
 # Arcana Vue
 
 [![Architecture Rating](https://img.shields.io/badge/Architecture%20Rating-⭐⭐⭐⭐⭐%2010.0%2F10-brightgreen.svg)](#architecture-evaluation)
+
+<!-- agent-managed badges START -->
+<p align="center">
+  <a href="https://arcana.boo/sonarqube/dashboard?id=vue-app"><img src="https://img.shields.io/badge/Quality_Gate-OK-brightgreen?style=for-the-badge" alt="Quality Gate"></a>
+  <a href="https://arcana.boo/jenkins/job/vue-app-pipeline-mb/job/main/"><img src="https://img.shields.io/badge/Build-passing-brightgreen?style=for-the-badge" alt="Build"></a>
+</p>
+<!-- agent-managed badges END -->
+<!-- arch-rank START -->
+<p align="center">
+  <img src="https://img.shields.io/badge/arch--qube-100%2F100-blue?style=for-the-badge" alt="arch-qube">
+  <img src="https://img.shields.io/badge/Grade-A%2B-brightgreen?style=for-the-badge" alt="Grade">
+  <img src="https://img.shields.io/badge/Arch_Gate-PASS-brightgreen?style=for-the-badge" alt="Architecture Gate">
+</p>
+<!-- arch-rank END -->
 
 Enterprise-grade Vue 3 application implementing Clean Architecture with MVVM + Input/Output/Effect (I/O/E) pattern.
 

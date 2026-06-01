@@ -5,6 +5,6 @@ services:
       dockerfile: Dockerfile.ci
       target: builder
     working_dir: /app
-    volumes:
-      - ./coverage:/output
-    command: sh -c "npx vitest run --coverage && cp -r ./coverage/* /output/ 2>/dev/null || true"
+    # Coverage is extracted by the Jenkins "Unit Tests" stage via `docker cp`
+    # (DinD-safe); no bind mount — under DinD it resolves to a stray host path.
+    command: sh -c "npx vitest run --coverage"
