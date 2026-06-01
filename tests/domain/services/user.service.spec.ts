@@ -1,17 +1,24 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useUserService, userService } from '@/domain/services/user.service'
-import { userRepository } from '@/data/repositories/user.repository'
 import type { UserListResult, User } from '@/domain/entities/user.entity'
 
-// Mock the repository
-vi.mock('@/data/repositories/user.repository', () => ({
+// The service resolves its repository lazily via useUserRepository() from the
+// DI container, so mock that resolver rather than the (interface-only) module.
+const { userRepository } = vi.hoisted(() => ({
   userRepository: {
     getUsers: vi.fn(),
     getUserById: vi.fn(),
     createUser: vi.fn(),
     updateUser: vi.fn(),
-    deleteUser: vi.fn()
+    deleteUser: vi.fn(),
+    prefetchUsers: vi.fn(),
+    invalidateListCache: vi.fn(),
+    clearAllCaches: vi.fn()
   }
+}))
+
+vi.mock('@/core/di/decorators', () => ({
+  useUserRepository: () => userRepository
 }))
 
 describe('User Service', () => {

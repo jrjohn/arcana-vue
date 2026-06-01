@@ -64,16 +64,28 @@ pipeline {
 
         stage("Unit Tests") {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                    sh "docker compose -f docker-compose.test.yml run --rm --build test"
-                }
+                // Run in a NAMED (not --rm) container so coverage can be copied out
+                // afterwards. Under DinD the compose bind mount resolves to a stray
+                // host path the Jenkins workspace never sees, so the lcov report is
+                // streamed back via `docker cp` instead — that lands it in the
+                // workspace where the SonarQube scanner reads coverage/lcov.info.
+                // The container exit code (vitest's) propagates so a test failure
+                // fails this stage.
+                sh '''
+                    docker rm -f vue-app-test 2>/dev/null || true
+                    docker compose -f docker-compose.test.yml run --name vue-app-test --build test
+                    rc=$?
+                    rm -rf coverage && mkdir -p coverage
+                    docker cp vue-app-test:/app/coverage/. coverage/ 2>/dev/null || true
+                    docker rm -f vue-app-test 2>/dev/null || true
+                    exit $rc
+                '''
             }
         }
 
         stage("SonarQube Analysis") {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                    withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarQube') {
                         // SonarQube Community Build rejects sonar.pullrequest.*
                         // (Developer Edition feature), so PR builds run a plain
                         // scan without GitHub PR decoration. Quality issues
@@ -85,32 +97,96 @@ pipeline {
                           -Dsonar.exclusions=node_modules/**,dist/** \
                           -Dsonar.scm.disabled=true \
                           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info"""
-                    }
+                        // Community Build has no webhook waitForQualityGate(); poll the CE task
+                        // named in report-task.txt, then read the quality-gate by analysisId.
+                        sh '''
+                            set -e
+                            TOKEN="${SONAR_AUTH_TOKEN:-$SONAR_TOKEN}"
+                            RT=.scannerwork/report-task.txt
+                            [ -f "$RT" ] || { echo "report-task.txt missing"; exit 1; }
+                            CE_TASK_ID=$(grep '^ceTaskId=' "$RT" | cut -d= -f2-)
+                            ANALYSIS_ID=""
+                            for i in $(seq 1 60); do
+                                RESP=$(curl -s -u "$TOKEN:" "$SONAR_HOST_URL/api/ce/task?id=$CE_TASK_ID")
+                                ST=$(echo "$RESP" | grep -o '"status":"[A-Z_]*"' | head -1 | cut -d'"' -f4)
+                                echo "  CE status: ${ST:-?} (try $i)"
+                                if [ "$ST" = "SUCCESS" ]; then ANALYSIS_ID=$(echo "$RESP" | grep -o '"analysisId":"[^"]*"' | head -1 | cut -d'"' -f4); break;
+                                elif [ "$ST" = "FAILED" ] || [ "$ST" = "CANCELED" ]; then echo "CE $ST"; exit 1; fi
+                                sleep 5
+                            done
+                            [ -n "$ANALYSIS_ID" ] || { echo "CE timeout"; exit 1; }
+                            GATE=$(curl -s -u "$TOKEN:" "$SONAR_HOST_URL/api/qualitygates/project_status?analysisId=$ANALYSIS_ID")
+                            GST=$(echo "$GATE" | grep -o '"status":"[A-Z]*"' | head -1 | cut -d'"' -f4)
+                            echo "Quality gate: ${GST:-UNKNOWN}"
+                            if [ "$GST" != "OK" ]; then echo "$GATE"; exit 1; fi
+                        '''
                 }
             }
         }
 
         stage("Architecture Qube") {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                    sh """
-                        mkdir -p arch-qube-reports
-                        docker run --rm \\
-                            --network devops_default \\
-                            -v \$(pwd):/project \\
-                            -v \$(pwd)/arch-qube-reports:/output \\
-                            arcana.boo/arcana/arch-qube:latest scan /project \\
-                            --framework vue --no-ai \\
-                            --ci --format json,markdown \\
-                            -o /output --threshold 90 || true
-                    """
-                }
+                // Blocking architecture gate at --threshold 90. The old `-v $(pwd):/project`
+                // bind mount is empty under DinD (the Jenkins workspace is a named volume the
+                // host daemon sees at a different path), so arch-qube scanned nothing. Instead
+                // create the container with anonymous volumes and stream the source in via
+                // `tar | docker cp`, then copy the report out. `--ci` exits non-zero if < 90.
+                sh '''
+                    docker rm -f arcana-arch-qube-vue 2>/dev/null || true
+                    docker create --name arcana-arch-qube-vue --network devops_default \
+                        -v /src -v /output \
+                        arcana.boo/arcana/arch-qube:latest \
+                        scan /src --framework vue --no-ai --ci \
+                        --format json,markdown -o /output --threshold 90 || exit 1
+                    tar --exclude=./.git --exclude=./node_modules --exclude=./dist \
+                        --exclude=./coverage --exclude=./arch-qube-reports -C . -cf - . \
+                        | docker cp - arcana-arch-qube-vue:/src || exit 1
+                    docker start -a arcana-arch-qube-vue
+                    AQ_RC=$?
+                    mkdir -p arch-qube-reports
+                    docker cp arcana-arch-qube-vue:/output/. arch-qube-reports/ 2>/dev/null || true
+                    docker rm -f arcana-arch-qube-vue 2>/dev/null || true
+                    exit $AQ_RC
+                '''
             }
         }
 
         stage("Image Info") {
             steps {
                 sh "docker images --format 'table {{.Repository}}:{{.Tag}}\\t{{.Size}}' | grep ${APP_NAME} || true"
+            }
+        }
+
+        stage("Strict Console Check") {
+            // L2 strict gate — fail build on any forbidden transient/error pattern in console.
+            // Patterns are infra-level signals we never want to treat as "green":
+            // network drops, OOM, dead daemons, missing tags, missing CLIs, k8s timeouts.
+            // Build-domain quality (test failures, sonar quality gate) is enforced by L1
+            // (catchError UNSTABLE removal — stage exits propagate).
+            steps {
+                script {
+                    def lines = currentBuild.rawBuild.getLog(20000)
+                    def log = lines.join('\n')
+                    def forbidden = [
+                        'Broken pipe',
+                        'Could not connect to Kotlin compile daemon',
+                        'Using fallback strategy: Compile without Kotlin daemon',
+                        'Remote host terminated the handshake',
+                        'tag does not exist',
+                        'docker: command not found',
+                        'failed to extract layer',
+                        'OutOfMemoryError',
+                        'Connection refused',
+                        'timed out waiting for the condition on pods',
+                        'failed to copy: httpReadSeeker'
+                    ]
+                    def hits = forbidden.findAll { p -> log.contains(p) }
+                    if (hits) {
+                        error "STRICT CHECK FAIL — forbidden console patterns: ${hits.join(', ')}"
+                    } else {
+                        echo "STRICT CHECK PASS — no forbidden console patterns in ${lines.size()} log lines"
+                    }
+                }
             }
         }
 
