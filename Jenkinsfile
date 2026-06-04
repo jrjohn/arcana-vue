@@ -71,12 +71,12 @@ pipeline {
                 // The container exit code (vitest's) propagates so a test failure
                 // fails this stage.
                 sh '''
-                    docker rm -f vue-app-test 2>/dev/null || true
-                    docker compose -f docker-compose.test.yml run --name vue-app-test --build test
+                    docker rm -f vue-app-test-${BUILD_NUMBER} 2>/dev/null || true
+                    docker compose -f docker-compose.test.yml run --name vue-app-test-${BUILD_NUMBER} --build test
                     rc=$?
                     rm -rf coverage && mkdir -p coverage
-                    docker cp vue-app-test:/app/coverage/. coverage/ 2>/dev/null || true
-                    docker rm -f vue-app-test 2>/dev/null || true
+                    docker cp vue-app-test-${BUILD_NUMBER}:/app/coverage/. coverage/ 2>/dev/null || true
+                    docker rm -f vue-app-test-${BUILD_NUMBER} 2>/dev/null || true
                     exit $rc
                 '''
             }
