@@ -41,7 +41,6 @@ pipeline {
             steps {
                 sh '''
                     # Remove dangling/unused images to free disk space
-                    docker image prune -f || true
                     # Keep only last 3 build-tagged images for this app
                     docker images --format '{{.Repository}}:{{.Tag}}' \
                         | grep "${APP_NAME}.*build-" \
@@ -132,20 +131,20 @@ pipeline {
                 // create the container with anonymous volumes and stream the source in via
                 // `tar | docker cp`, then copy the report out. `--ci` exits non-zero if < 90.
                 sh '''
-                    docker rm -f arcana-arch-qube-vue 2>/dev/null || true
-                    docker create --name arcana-arch-qube-vue --network devops_default \
+                    docker rm -f arcana-arch-qube-vue-${BUILD_NUMBER} 2>/dev/null || true
+                    docker create --name arcana-arch-qube-vue-${BUILD_NUMBER} --network devops_default \
                         -v /src -v /output \
                         arcana.boo/arcana/arch-qube:latest \
                         scan /src --framework vue --no-ai --ci \
                         --format json,markdown -o /output --threshold 90 || exit 1
                     tar --exclude=./.git --exclude=./node_modules --exclude=./dist \
                         --exclude=./coverage --exclude=./arch-qube-reports -C . -cf - . \
-                        | docker cp - arcana-arch-qube-vue:/src || exit 1
-                    docker start -a arcana-arch-qube-vue
+                        | docker cp - arcana-arch-qube-vue-${BUILD_NUMBER}:/src || exit 1
+                    docker start -a arcana-arch-qube-vue-${BUILD_NUMBER}
                     AQ_RC=$?
                     mkdir -p arch-qube-reports
-                    docker cp arcana-arch-qube-vue:/output/. arch-qube-reports/ 2>/dev/null || true
-                    docker rm -f arcana-arch-qube-vue 2>/dev/null || true
+                    docker cp arcana-arch-qube-vue-${BUILD_NUMBER}:/output/. arch-qube-reports/ 2>/dev/null || true
+                    docker rm -f arcana-arch-qube-vue-${BUILD_NUMBER} 2>/dev/null || true
                     exit $AQ_RC
                 '''
             }
