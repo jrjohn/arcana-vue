@@ -71,12 +71,18 @@ pipeline {
                 // The container exit code (vitest's) propagates so a test failure
                 // fails this stage.
                 sh '''
-                    docker rm -f vue-app-test-${BUILD_NUMBER} 2>/dev/null || true
-                    docker compose -f docker-compose.test.yml run --name vue-app-test-${BUILD_NUMBER} --build test
+                    # Container name must be unique per concurrent build on the SHARED
+                    # daemon. BUILD_NUMBER alone is per-branch in multibranch, so build #1
+                    # of PR-25 / PR-24 / main all collide on "vue-app-test-1". Fold the
+                    # (slash-sanitised) BRANCH_NAME in so the name is branch-unique too,
+                    # mirroring the already-unique compose project namespace.
+                    CNAME="vue-app-test-$(printf '%s' "${BRANCH_NAME}-${BUILD_NUMBER}" | tr -c 'a-zA-Z0-9_.-' '-')"
+                    docker rm -f "${CNAME}" 2>/dev/null || true
+                    docker compose -f docker-compose.test.yml run --name "${CNAME}" --build test
                     rc=$?
                     rm -rf coverage && mkdir -p coverage
-                    docker cp vue-app-test-${BUILD_NUMBER}:/app/coverage/. coverage/ 2>/dev/null || true
-                    docker rm -f vue-app-test-${BUILD_NUMBER} 2>/dev/null || true
+                    docker cp "${CNAME}":/app/coverage/. coverage/ 2>/dev/null || true
+                    docker rm -f "${CNAME}" 2>/dev/null || true
                     exit $rc
                 '''
             }
