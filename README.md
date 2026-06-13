@@ -42,7 +42,7 @@ Enterprise-grade Vue 3 application implementing Clean Architecture with MVVM + I
 | Category | Technology |
 |----------|------------|
 | Framework | Vue 3.5+ (Composition API, `<script setup>`) |
-| Language | TypeScript 5.9+ (strict mode) |
+| Language | TypeScript 6.0+ (strict mode) |
 | Build | Vite 8.0+ |
 | State | Pinia 3.0 + ViewModel pattern |
 | Routing | Vue Router 4.5 |
