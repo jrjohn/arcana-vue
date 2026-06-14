@@ -3,6 +3,21 @@ import { mount } from '@vue/test-utils'
 import { createRouter, createMemoryHistory } from 'vue-router'
 import SidebarComponent from '@/presentation/components/layout/SidebarComponent.vue'
 
+// Mock the real app router: SidebarComponent's nav-item actions call
+// navGraph.*.navigate(), which router.push() the REAL @/router and lazily
+// import its route component chunks. Under vitest v4 those dynamic imports
+// resolve after the test environment is torn down and surface as
+// EnvironmentTeardownError unhandled rejections that fail the run (v3 swallowed
+// them). A unit test for the sidebar should not drive the real router; stub
+// navGraph so click actions are observable no-ops. Router behaviour itself is
+// covered by tests/router/index.spec.ts.
+vi.mock('@/router', () => ({
+  navGraph: {
+    home: { navigate: vi.fn() },
+    users: { toList: vi.fn() }
+  }
+}))
+
 // Create a mock router
 const router = createRouter({
   history: createMemoryHistory(),

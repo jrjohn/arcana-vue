@@ -28,11 +28,20 @@ export default defineConfig({
         'src/domain/entities/user.entity.ts',
         'src/data/repositories/interfaces/**/*.ts'
       ],
+      // Recalibrated for vitest v4: the v8 provider now uses AST-aware
+      // remapping (ast-v8-to-istanbul) — the legacy remapper and the
+      // experimentalAstAwareRemapping toggle were removed in v4, so there is
+      // no switch back to v3's measurement. The identical 792 tests that
+      // measured 97.28%/97.28%/93.39% under v3 (main #51) measure ~89.4%/~89.9%
+      // /~82.1% under v4's stricter per-node accounting (no app source changed).
+      // Thresholds re-express the same effective bar in the new measurement
+      // basis, with a small margin below observed coverage to absorb the ~0.3pt
+      // run-to-run v8 nondeterminism on async branches (avoids a flaky gate).
       thresholds: {
-        statements: 95,
-        branches: 90,
-        functions: 85,
-        lines: 95
+        statements: 88,
+        branches: 80,
+        functions: 84,
+        lines: 88
       }
     },
     setupFiles: ['./tests/setup.ts']
