@@ -50,7 +50,7 @@ Enterprise-grade Vue 3 application implementing Clean Architecture with MVVM + I
 | DI | InversifyJS 7.10 |
 | Caching | Dexie 4.2 (IndexedDB) |
 | UI | Bootstrap 5.3 + Bootstrap Icons |
-| Testing | Vitest 3.1 + Vue Test Utils |
+| Testing | Vitest 4.0 + Vue Test Utils |
 
 ## Project Structure
 
