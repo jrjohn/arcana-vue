@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/jrjohn/arcana-vue/compare/v1.2.0...v1.2.1) (2026-06-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency inversify to v8 ([#31](https://github.com/jrjohn/arcana-vue/issues/31)) ([582b498](https://github.com/jrjohn/arcana-vue/commit/582b498a5ef7dca42b1fc0bd7e7c929fe4ea6d12))
+* **deps:** update dependency vue-router to v5 ([#32](https://github.com/jrjohn/arcana-vue/issues/32)) ([695571a](https://github.com/jrjohn/arcana-vue/commit/695571a1b973d0ef6cfa5b485383a6bd8a6c3d65))
+
 ## [1.2.0](https://github.com/jrjohn/arcana-vue/compare/v1.1.0...v1.2.0) (2026-06-12)
 
 
