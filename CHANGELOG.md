@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/jrjohn/arcana-vue/compare/v1.2.1...v1.2.2) (2026-07-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pinia to v4 ([#53](https://github.com/jrjohn/arcana-vue/issues/53)) ([f515374](https://github.com/jrjohn/arcana-vue/commit/f51537461f477d73efa024ece6ce328e2c8f9c9e))
+
 ## [1.2.1](https://github.com/jrjohn/arcana-vue/compare/v1.2.0...v1.2.1) (2026-06-14)
 
 
