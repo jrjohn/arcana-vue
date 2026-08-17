@@ -2,6 +2,9 @@
 # Arcana Vue
 
 [![Architecture Rating](https://img.shields.io/badge/Architecture%20Rating-⭐⭐⭐⭐⭐%2010.0%2F10-brightgreen.svg)](#architecture-evaluation)
+![Vue](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjrjohn%2Farcana-vue%2Fmain%2Fpackage-lock.json&query=%24.packages%5B%27node_modules%2Fvue%27%5D.version&label=Vue&color=42b883&logo=vuedotjs&style=flat-square)
+![TypeScript](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjrjohn%2Farcana-vue%2Fmain%2Fpackage-lock.json&query=%24.packages%5B%27node_modules%2Ftypescript%27%5D.version&label=TypeScript&color=blue&logo=typescript&style=flat-square)
+![Vite](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjrjohn%2Farcana-vue%2Fmain%2Fpackage-lock.json&query=%24.packages%5B%27node_modules%2Fvite%27%5D.version&label=Vite&color=646CFF&logo=vite&style=flat-square)
 
 <!-- agent-managed badges START -->
 <p align="center">
