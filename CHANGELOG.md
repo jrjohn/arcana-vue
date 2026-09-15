@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.5](https://github.com/jrjohn/arcana-vue/compare/v1.2.4...v1.2.5) (2026-09-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dexie to v4.4.6 ([#84](https://github.com/jrjohn/arcana-vue/issues/84)) ([b9291f2](https://github.com/jrjohn/arcana-vue/commit/b9291f26843e0318dfd491be631c09b463c381ea))
+* **deps:** update vitest monorepo to v5.0.1 ([#85](https://github.com/jrjohn/arcana-vue/issues/85)) ([eec55c1](https://github.com/jrjohn/arcana-vue/commit/eec55c114ef72fcce55ecd435f7f99516b697046))
+
 ## [1.2.4](https://github.com/jrjohn/arcana-vue/compare/v1.2.3...v1.2.4) (2026-09-15)
 
 
