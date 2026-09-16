@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.6](https://github.com/jrjohn/arcana-vue/compare/v1.2.5...v1.2.6) (2026-09-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/node to v24.13.5 ([#87](https://github.com/jrjohn/arcana-vue/issues/87)) ([31e242a](https://github.com/jrjohn/arcana-vue/commit/31e242abe81d06719da8aa821a088d7ba4467dd5))
+* **deps:** update dependency @vue/test-utils to v2.5.0 ([#88](https://github.com/jrjohn/arcana-vue/issues/88)) ([b737448](https://github.com/jrjohn/arcana-vue/commit/b737448fbf72d47e35f28b90f05fef9e168a5808))
+
 ## [1.2.5](https://github.com/jrjohn/arcana-vue/compare/v1.2.4...v1.2.5) (2026-09-15)
 
 
