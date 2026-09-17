@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.7](https://github.com/jrjohn/arcana-vue/compare/v1.2.6...v1.2.7) (2026-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vue/test-utils to v2.5.1 ([#90](https://github.com/jrjohn/arcana-vue/issues/90)) ([378fccd](https://github.com/jrjohn/arcana-vue/commit/378fccd40110f98ad5cf085b0789dc7c9de639f7))
+* **deps:** update dependency axios to v1.20.0 ([#91](https://github.com/jrjohn/arcana-vue/issues/91)) ([6e817d1](https://github.com/jrjohn/arcana-vue/commit/6e817d1033a1739695f7d89ce74d0ec480a88414))
+
 ## [1.2.6](https://github.com/jrjohn/arcana-vue/compare/v1.2.5...v1.2.6) (2026-09-16)
 
 
