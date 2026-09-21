@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.9](https://github.com/jrjohn/arcana-vue/compare/v1.2.8...v1.2.9) (2026-09-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/node to v24.13.6 ([#99](https://github.com/jrjohn/arcana-vue/issues/99)) ([d71c996](https://github.com/jrjohn/arcana-vue/commit/d71c99689485ca81cc24cdde3972a43306b30c1c))
+* **deps:** update dependency vite to v8.3.0 ([#97](https://github.com/jrjohn/arcana-vue/issues/97)) ([24b20a9](https://github.com/jrjohn/arcana-vue/commit/24b20a970aea8b3b088c72df9f1df79f6fc8e017))
+
 ## [1.2.8](https://github.com/jrjohn/arcana-vue/compare/v1.2.7...v1.2.8) (2026-09-19)
 
 
