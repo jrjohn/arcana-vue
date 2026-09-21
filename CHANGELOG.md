@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.10](https://github.com/jrjohn/arcana-vue/compare/v1.2.9...v1.2.10) (2026-09-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency jsdom to v30.1.0 ([#94](https://github.com/jrjohn/arcana-vue/issues/94)) ([388ce65](https://github.com/jrjohn/arcana-vue/commit/388ce650a2141f6f11bb181c435d87a40ade1f58))
+* **deps:** update dependency vue-router to v5.3.1 ([#100](https://github.com/jrjohn/arcana-vue/issues/100)) ([b8089b1](https://github.com/jrjohn/arcana-vue/commit/b8089b1543eaea479cb8f01b014cc69df559ac53))
+
 ## [1.2.9](https://github.com/jrjohn/arcana-vue/compare/v1.2.8...v1.2.9) (2026-09-21)
 
 
