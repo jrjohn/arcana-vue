@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.19](https://github.com/jrjohn/arcana-vue/compare/v1.2.18...v1.2.19) (2026-10-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/node to v24.19.1 ([#121](https://github.com/jrjohn/arcana-vue/issues/121)) ([06a3d4b](https://github.com/jrjohn/arcana-vue/commit/06a3d4b340c1720f2e4c34d7c4294d9f144c0e32))
+
 ## [1.2.18](https://github.com/jrjohn/arcana-vue/compare/v1.2.17...v1.2.18) (2026-10-01)
 
 
