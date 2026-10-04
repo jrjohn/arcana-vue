@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.21](https://github.com/jrjohn/arcana-vue/compare/v1.2.20...v1.2.21) (2026-10-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency jsdom to v30.1.2 ([#125](https://github.com/jrjohn/arcana-vue/issues/125)) ([4997e25](https://github.com/jrjohn/arcana-vue/commit/4997e251cb130541514c844269cb5bb5983d67d7))
+
 ## [1.2.20](https://github.com/jrjohn/arcana-vue/compare/v1.2.19...v1.2.20) (2026-10-02)
 
 
