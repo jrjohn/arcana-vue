@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.24](https://github.com/jrjohn/arcana-vue/compare/v1.2.23...v1.2.24) (2026-10-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bootstrap-icons to v1.13.2 ([#131](https://github.com/jrjohn/arcana-vue/issues/131)) ([19dd658](https://github.com/jrjohn/arcana-vue/commit/19dd6584c306bdf58bc9e79cfadd579bcbf43e1d))
+* **deps:** update dependency vite to v8.3.4 ([#132](https://github.com/jrjohn/arcana-vue/issues/132)) ([0cf690e](https://github.com/jrjohn/arcana-vue/commit/0cf690e0a18fed8208068ce486e9fde8629ebd65))
+
 ## [1.2.23](https://github.com/jrjohn/arcana-vue/compare/v1.2.22...v1.2.23) (2026-10-07)
 
 
