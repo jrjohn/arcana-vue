@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.26](https://github.com/jrjohn/arcana-vue/compare/v1.2.25...v1.2.26) (2026-10-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vitejs/plugin-vue to v6.0.10 ([#136](https://github.com/jrjohn/arcana-vue/issues/136)) ([565fa84](https://github.com/jrjohn/arcana-vue/commit/565fa849d08b1b63bd4b7475fd434c5dd2adff87))
+
 ## [1.2.25](https://github.com/jrjohn/arcana-vue/compare/v1.2.24...v1.2.25) (2026-10-10)
 
 
