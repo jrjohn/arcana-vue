@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.27](https://github.com/jrjohn/arcana-vue/compare/v1.2.26...v1.2.27) (2026-10-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue-tsc to v3.3.13 ([#138](https://github.com/jrjohn/arcana-vue/issues/138)) ([51eab6b](https://github.com/jrjohn/arcana-vue/commit/51eab6b0749d0d6bcc5a1ee589ad367c5c85ea8a))
+
 ## [1.2.26](https://github.com/jrjohn/arcana-vue/compare/v1.2.25...v1.2.26) (2026-10-10)
 
 
