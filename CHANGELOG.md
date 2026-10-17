@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.31](https://github.com/jrjohn/arcana-vue/compare/v1.2.30...v1.2.31) (2026-10-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fake-indexeddb to v6.2.6 ([#146](https://github.com/jrjohn/arcana-vue/issues/146)) ([4bb341c](https://github.com/jrjohn/arcana-vue/commit/4bb341cf3010f51d5392c1a36bfe2e25973d6d04))
+* **deps:** update dependency jsdom to v30.1.3 ([#147](https://github.com/jrjohn/arcana-vue/issues/147)) ([a99ef79](https://github.com/jrjohn/arcana-vue/commit/a99ef79176b6f69cc9aab75599ae92426b4ce7c7))
+
 ## [1.2.30](https://github.com/jrjohn/arcana-vue/compare/v1.2.29...v1.2.30) (2026-10-14)
 
 
