@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.32](https://github.com/jrjohn/arcana-vue/compare/v1.2.31...v1.2.32) (2026-10-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sass to v1.105.2 ([#149](https://github.com/jrjohn/arcana-vue/issues/149)) ([d682981](https://github.com/jrjohn/arcana-vue/commit/d68298169f1f89c09ba7064e8b20a29f031d4ad1))
+* **deps:** update vitest monorepo to v5.0.5 ([#150](https://github.com/jrjohn/arcana-vue/issues/150)) ([1ce113c](https://github.com/jrjohn/arcana-vue/commit/1ce113ceb6e71a8fc232a56977619235ba287015))
+
 ## [1.2.31](https://github.com/jrjohn/arcana-vue/compare/v1.2.30...v1.2.31) (2026-10-17)
 
 
