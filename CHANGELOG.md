@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.33](https://github.com/jrjohn/arcana-vue/compare/v1.2.32...v1.2.33) (2026-10-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dexie to v4.4.7 ([#152](https://github.com/jrjohn/arcana-vue/issues/152)) ([83d8d7d](https://github.com/jrjohn/arcana-vue/commit/83d8d7d5adf6f77beacfa8cebbb4405e6201d8a8))
+
 ## [1.2.32](https://github.com/jrjohn/arcana-vue/compare/v1.2.31...v1.2.32) (2026-10-17)
 
 
