@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.37](https://github.com/jrjohn/arcana-vue/compare/v1.2.36...v1.2.37) (2026-10-28)
+
+
+### Bug Fixes
+
+* **deps:** update node.js to v26 ([#161](https://github.com/jrjohn/arcana-vue/issues/161)) ([cf8aa10](https://github.com/jrjohn/arcana-vue/commit/cf8aa10e7964a746ccedef47062ff58a321a4618))
+
 ## [1.2.36](https://github.com/jrjohn/arcana-vue/compare/v1.2.35...v1.2.36) (2026-10-27)
 
 
