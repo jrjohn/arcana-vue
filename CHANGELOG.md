@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.38](https://github.com/jrjohn/arcana-vue/compare/v1.2.37...v1.2.38) (2026-10-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/node to v26.6.6 ([#163](https://github.com/jrjohn/arcana-vue/issues/163)) ([15add05](https://github.com/jrjohn/arcana-vue/commit/15add055d5676c66eea424d0d65461a6e319ec9b))
+* **deps:** update dependency sass to v1.107.0 ([#164](https://github.com/jrjohn/arcana-vue/issues/164)) ([c6a43f2](https://github.com/jrjohn/arcana-vue/commit/c6a43f24c96e4298305f193b640054b94506f6d1))
+
 ## [1.2.37](https://github.com/jrjohn/arcana-vue/compare/v1.2.36...v1.2.37) (2026-10-28)
 
 
