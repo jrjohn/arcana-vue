@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.43](https://github.com/jrjohn/arcana-vue/compare/v1.2.42...v1.2.43) (2026-11-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency inversify to v8.2.4 ([#174](https://github.com/jrjohn/arcana-vue/issues/174)) ([b822704](https://github.com/jrjohn/arcana-vue/commit/b822704dea3fa98e779c8343c692b29957bbe042))
+
 ## [1.2.42](https://github.com/jrjohn/arcana-vue/compare/v1.2.41...v1.2.42) (2026-11-02)
 
 
