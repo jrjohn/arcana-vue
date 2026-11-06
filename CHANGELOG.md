@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.45](https://github.com/jrjohn/arcana-vue/compare/v1.2.44...v1.2.45) (2026-11-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency jsdom to v31 ([#180](https://github.com/jrjohn/arcana-vue/issues/180)) ([f95087c](https://github.com/jrjohn/arcana-vue/commit/f95087cb5731c5c82ce2dafb3fab5a644a16fa3f))
+* **deps:** update dependency sass to v1.108.0 ([#181](https://github.com/jrjohn/arcana-vue/issues/181)) ([06b2aae](https://github.com/jrjohn/arcana-vue/commit/06b2aae4c54cc296155608c1383a5b85b7f13179))
+
 ## [1.2.44](https://github.com/jrjohn/arcana-vue/compare/v1.2.43...v1.2.44) (2026-11-05)
 
 
