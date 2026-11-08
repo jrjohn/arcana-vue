@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.48](https://github.com/jrjohn/arcana-vue/compare/v1.2.47...v1.2.48) (2026-11-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fake-indexeddb to v6.2.8 ([#187](https://github.com/jrjohn/arcana-vue/issues/187)) ([7b7a6ef](https://github.com/jrjohn/arcana-vue/commit/7b7a6ef052c519fbf690c305c72f745e730b7df2))
+
 ## [1.2.47](https://github.com/jrjohn/arcana-vue/compare/v1.2.46...v1.2.47) (2026-11-07)
 
 
