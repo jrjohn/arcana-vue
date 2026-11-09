@@ -4,7 +4,7 @@
 [![Architecture Rating](https://img.shields.io/badge/Architecture%20Rating-⭐⭐⭐⭐⭐%2010.0%2F10-brightgreen.svg)](#architecture-evaluation)
 ![Vue](https://img.shields.io/badge/Vue-3.5.45-42b883?style=flat-square&logo=vuedotjs)
 ![TypeScript](https://img.shields.io/badge/TypeScript-7.0.2-blue?style=flat-square&logo=typescript)
-![Vite](https://img.shields.io/badge/Vite-8.3.6-646CFF?style=flat-square&logo=vite)
+![Vite](https://img.shields.io/badge/Vite-8.3.7-646CFF?style=flat-square&logo=vite)
 
 <!-- agent-managed badges START -->
 <p align="center">
