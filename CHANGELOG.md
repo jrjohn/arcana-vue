@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.50](https://github.com/jrjohn/arcana-vue/compare/v1.2.49...v1.2.50) (2026-11-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.21.1 ([#191](https://github.com/jrjohn/arcana-vue/issues/191)) ([3be56d8](https://github.com/jrjohn/arcana-vue/commit/3be56d80e4e1cb8acdbf69914b320f9e1e066055))
+
 ## [1.2.49](https://github.com/jrjohn/arcana-vue/compare/v1.2.48...v1.2.49) (2026-11-09)
 
 
