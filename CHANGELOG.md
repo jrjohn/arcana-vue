@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.52](https://github.com/jrjohn/arcana-vue/compare/v1.2.51...v1.2.52) (2026-11-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sass to v1.108.2 ([#195](https://github.com/jrjohn/arcana-vue/issues/195)) ([8c112f5](https://github.com/jrjohn/arcana-vue/commit/8c112f592de3397cd37f38c945d0d4bbe74daa86))
+* **deps:** update dependency vite to v8.3.8 ([#196](https://github.com/jrjohn/arcana-vue/issues/196)) ([51ddb14](https://github.com/jrjohn/arcana-vue/commit/51ddb14332891b006511f9c3b5053b77e1e174a2))
+
 ## [1.2.51](https://github.com/jrjohn/arcana-vue/compare/v1.2.50...v1.2.51) (2026-11-11)
 
 
