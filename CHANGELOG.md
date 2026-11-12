@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.53](https://github.com/jrjohn/arcana-vue/compare/v1.2.52...v1.2.53) (2026-11-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bootstrap to v5.3.9 ([#198](https://github.com/jrjohn/arcana-vue/issues/198)) ([26d2da3](https://github.com/jrjohn/arcana-vue/commit/26d2da3c40bd246ba91efefdb9388cbf2fd77f6a))
+
 ## [1.2.52](https://github.com/jrjohn/arcana-vue/compare/v1.2.51...v1.2.52) (2026-11-11)
 
 
