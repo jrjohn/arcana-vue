@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.56](https://github.com/jrjohn/arcana-vue/compare/v1.2.55...v1.2.56) (2026-11-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue-router to v5.5.1 ([#204](https://github.com/jrjohn/arcana-vue/issues/204)) ([b5f875c](https://github.com/jrjohn/arcana-vue/commit/b5f875c68411a76138fd591d1769aceef652b3b1))
+
 ## [1.2.55](https://github.com/jrjohn/arcana-vue/compare/v1.2.54...v1.2.55) (2026-11-13)
 
 
