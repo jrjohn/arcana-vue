@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.57](https://github.com/jrjohn/arcana-vue/compare/v1.2.56...v1.2.57) (2026-11-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vue/test-utils to v2.6.0 ([#206](https://github.com/jrjohn/arcana-vue/issues/206)) ([099e8c1](https://github.com/jrjohn/arcana-vue/commit/099e8c1211b26597bbf1d26259894c5006aab302))
+
 ## [1.2.56](https://github.com/jrjohn/arcana-vue/compare/v1.2.55...v1.2.56) (2026-11-14)
 
 
