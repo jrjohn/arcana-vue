@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.58](https://github.com/jrjohn/arcana-vue/compare/v1.2.57...v1.2.58) (2026-11-18)
+
+
+### Bug Fixes
+
+* **deps:** update vitest monorepo to v5.1.1 ([#209](https://github.com/jrjohn/arcana-vue/issues/209)) ([e8d4b03](https://github.com/jrjohn/arcana-vue/commit/e8d4b030bd9bb7a21c345ca8f53003353024e6f1))
+
 ## [1.2.57](https://github.com/jrjohn/arcana-vue/compare/v1.2.56...v1.2.57) (2026-11-15)
 
 
