@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.59](https://github.com/jrjohn/arcana-vue/compare/v1.2.58...v1.2.59) (2026-11-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue to v3.5.46 ([#211](https://github.com/jrjohn/arcana-vue/issues/211)) ([7c89462](https://github.com/jrjohn/arcana-vue/commit/7c894620e2eb582e97da35414b014c8d6d4a2bdc))
+
 ## [1.2.58](https://github.com/jrjohn/arcana-vue/compare/v1.2.57...v1.2.58) (2026-11-18)
 
 
