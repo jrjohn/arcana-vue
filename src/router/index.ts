@@ -41,7 +41,8 @@ const routes: RouteRecordRaw[] = [
         name: 'user-edit',
         component: () => import('@/presentation/features/users/UserFormPage.vue'),
         meta: { title: 'Edit User' }
-      }
+      },
+      // @new-feature:routes — tools/new-feature.sh inserts feature routes above this line
     ]
   },
   {
@@ -99,6 +100,7 @@ export const navGraph = {
     toDetail: (id: number) => router.push(`/users/${id}`),
     toEdit: (id: number) => router.push(`/users/${id}/edit`)
   },
+  // @new-feature:nav — tools/new-feature.sh inserts feature navGraph entries above this line
   error: {
     path: '/error',
     to403: () => router.push('/error/403'),

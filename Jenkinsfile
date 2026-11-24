@@ -78,8 +78,12 @@ pipeline {
                     # mirroring the already-unique compose project namespace.
                     CNAME="vue-app-test-$(printf '%s' "${BRANCH_NAME}-${BUILD_NUMBER}" | tr -c 'a-zA-Z0-9_.-' '-')"
                     docker rm -f "${CNAME}" 2>/dev/null || true
-                    docker compose -f docker-compose.test.yml run --name "${CNAME}" --build test
-                    rc=$?
+                    # Jenkins runs this with `sh -e`: a bare failing command would abort the
+                    # script before the cleanup below, and the old `rc=$?` line after it was dead
+                    # code. Capture the exit code explicitly so vitest's failure (tests or the
+                    # coverage thresholds in vitest.config.ts) is what `exit $rc` returns.
+                    rc=0
+                    docker compose -f docker-compose.test.yml run --name "${CNAME}" --build test || rc=$?
                     rm -rf coverage && mkdir -p coverage
                     docker cp "${CNAME}":/app/coverage/. coverage/ 2>/dev/null || true
                     docker rm -f "${CNAME}" 2>/dev/null || true
@@ -142,16 +146,27 @@ pipeline {
                     # (arcana-ios PR-14/PR-15, 2026-09-30: "destination ...:/src must be a directory").
                     AQ="arcana-arch-qube-vue-$(printf '%s' "${BRANCH_NAME}-${BUILD_NUMBER}" | tr -c 'A-Za-z0-9_.-' '-')"
                     docker rm -f "$AQ" 2>/dev/null || true
+                    # Version pinned in tools/arch-qube.version (shared with tools/arch-check.sh).
+                    # Public ghcr image first, then the private registry. Never :latest — an
+                    # unpinned scanner already turned another template's CI red overnight.
+                    AQV="$(tr -d '[:space:]' < tools/arch-qube.version)"
+                    AQ_IMAGE=""
+                    for cand in "ghcr.io/jrjohn/arch-qube:${AQV}" "arcana.boo/arcana/arch-qube:${AQV}"; do
+                        if docker image inspect "$cand" >/dev/null 2>&1 || docker pull -q "$cand" >/dev/null 2>&1; then
+                            AQ_IMAGE="$cand"; break
+                        fi
+                    done
+                    [ -n "$AQ_IMAGE" ] || { echo "arch-qube ${AQV} not pullable from ghcr.io or arcana.boo — cannot check (NOT a pass)"; exit 2; }
                     docker create --name "$AQ" --network devops_default \
                         -v /src -v /output \
-                        arcana.boo/arcana/arch-qube:latest \
+                        "$AQ_IMAGE" \
                         scan /src --framework vue --no-ai --ci \
                         --format json,markdown -o /output --threshold 90 || exit 1
                     tar --exclude=./.git --exclude=./node_modules --exclude=./dist \
                         --exclude=./coverage --exclude=./arch-qube-reports -C . -cf - . \
                         | docker cp - "$AQ":/src || exit 1
-                    docker start -a "$AQ"
-                    AQ_RC=$?
+                    AQ_RC=0
+                    docker start -a "$AQ" || AQ_RC=$?   # capture under sh -e so the report is still copied out
                     mkdir -p arch-qube-reports
                     docker cp "$AQ":/output/. arch-qube-reports/ 2>/dev/null || true
                     docker rm -f "$AQ" 2>/dev/null || true

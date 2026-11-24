@@ -40,3 +40,5 @@ export * from './base.view-model'
 export * from './user-list.view-model'
 export * from './user-detail.view-model'
 export * from './user-form.view-model'
+
+// @new-feature:view-models — tools/new-feature.sh inserts feature view-model exports above this line

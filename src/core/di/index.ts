@@ -51,3 +51,5 @@ export {
   createMockInjector,
   removeMockInjector
 } from './decorators'
+
+// @new-feature:exports — tools/new-feature.sh inserts feature exports above this line

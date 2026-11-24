@@ -19,6 +19,7 @@ import type {
   IUserRepository,
   IUserDao
 } from './types'
+// @new-feature:imports — tools/new-feature.sh inserts feature imports above this line
 
 /**
  * Inject a service from the DI container
@@ -89,6 +90,8 @@ export function useNetworkStatus(): INetworkStatus {
 export function useUserValidator(): IUserValidator {
   return container.get<IUserValidator>(TOKENS.UserValidator)
 }
+
+// @new-feature:composables — tools/new-feature.sh inserts use<Name>Dao/Repository/Service above this line
 
 /**
  * Create a mock injector for testing

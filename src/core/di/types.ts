@@ -227,3 +227,5 @@ export interface II18nService {
 // Re-export repository and DAO interfaces
 export type { IUserRepository } from '@/data/repositories/user.repository'
 export type { IUserDao } from '@/dao/user.dao'
+
+// @new-feature:types — tools/new-feature.sh inserts feature interfaces above this line
