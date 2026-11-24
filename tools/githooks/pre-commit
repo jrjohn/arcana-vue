@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# Fast layering check on every commit (no docker, no npm). The full scan is
+# tools/arch-check.sh and the Jenkins stage "Architecture Qube". Rules: AGENTS.md §3.
+#
+# Regex, not `case` globs: in a case pattern `*` also matches `/`, so `src/*.ts` would match
+# every correctly layered file too (this exact bug false-blocked good files in another template).
+# Only ADDED files / ADDED lines are judged, so editing legacy code never fails on old lines.
+set -euo pipefail
+
+# Directories a NEW file under src/ may live in (AGENTS.md §2). features/<feature>/ and
+# components/<group>/ are one level deep.
+LAYER_DIRS='core/di|core/plugins|router|styles|presentation/features/[a-z0-9-]+|presentation/components/[a-z0-9-]+|presentation/layouts|presentation/view-models|domain/entities|domain/services|domain/validators|data/api|data/api/interceptors|data/cache|data/dtos|data/mappers|data/repositories|repository|repository/impl|dao|dao/impl'
+
+fail=0
+
+# R6 — no NEW file directly under src/ or outside a layer directory.
+while IFS= read -r f; do
+    [ -n "$f" ] || continue
+    [[ "$f" =~ ^src/ ]] || continue
+    if [[ "$f" =~ ^src/[^/]+$ ]]; then
+        echo "pre-commit: $f — new file at the src/ root. Put it in a layer directory (AGENTS.md §2) or run tools/new-feature.sh" >&2
+        fail=1
+    elif ! [[ "$f" =~ ^src/($LAYER_DIRS)/[^/]+$ ]]; then
+        echo "pre-commit: $f — not in a layer directory (AGENTS.md §2 lists them). Run tools/new-feature.sh for a new feature" >&2
+        fail=1
+    fi
+done <<< "$(git diff --cached --name-only --diff-filter=AR)"
+
+# R2 / R3 — checked on ADDED lines of staged src/ .ts/.vue files.
+while IFS= read -r f; do
+    [ -n "$f" ] || continue
+    [[ "$f" =~ ^src/.*\.(ts|vue)$ ]] || continue
+    added="$(git diff --cached -U0 -- "$f" | grep -E '^\+[^+]' | sed 's/^+//' | grep -vE '^\s*(//|\*|/\*)' || true)"
+    [ -n "$added" ] || continue
+
+    # R2: only src/core/di/container.ts names a concrete *Impl or imports from an impl/ dir.
+    # impl files may name their own class but not import another impl/; index.ts may re-export.
+    if ! [[ "$f" =~ ^src/core/di/container\.ts$ ]]; then
+        if [[ "$f" =~ /impl/ ]]; then
+            hits="$(printf '%s\n' "$added" | grep -E "from ['\"][^'\"]*/impl/" || true)"
+        else
+            hits="$(printf '%s\n' "$added" | grep -E "\\b[A-Z][A-Za-z0-9]*Impl\\b|from ['\"][^'\"]*/impl/" || true)"
+            if [[ "$f" =~ (^|/)index\.ts$ ]]; then
+                hits="$(printf '%s\n' "$hits" | grep -vE '^\s*export .* from ' || true)"
+            fi
+        fi
+        if [ -n "$hits" ]; then
+            echo "pre-commit: $f names a concrete *Impl / imports from impl/ — depend on the interface and resolve it through src/core/di (AGENTS.md R2):" >&2
+            printf '    %s\n' "$hits" >&2
+            fail=1
+        fi
+    fi
+
+    # R3: a view (.vue under presentation/) talks to its ViewModel only — never to a service
+    # (i18n excepted, as the existing pages do), repository, DAO, mapper, cache or the API.
+    if [[ "$f" =~ ^src/presentation/.*\.vue$ ]]; then
+        hits="$(printf '%s\n' "$added" | grep -E "from ['\"]@/(dao|repository|data)(/|['\"])|from ['\"]@/domain/services/" | grep -vE "@/domain/services/i18n\.service" || true)"
+        if [ -n "$hits" ]; then
+            echo "pre-commit: $f — a view imports a service/repository/DAO/data module. Put the call in the ViewModel (src/presentation/view-models/) and use its inputs/outputs (AGENTS.md R3):" >&2
+            printf '    %s\n' "$hits" >&2
+            fail=1
+        fi
+    fi
+done <<< "$(git diff --cached --name-only --diff-filter=ACMR)"
+
+if [ "$fail" -ne 0 ]; then
+    echo "pre-commit: blocked. Full check: tools/arch-check.sh" >&2
+    exit 1
+fi

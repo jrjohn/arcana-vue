@@ -38,6 +38,7 @@ import type {
   IUserRepository,
   IUserDao
 } from './types'
+// @new-feature:imports — tools/new-feature.sh inserts feature imports above this line
 
 /**
  * Create and configure the DI container
@@ -72,6 +73,7 @@ function createContainer(): Container {
 
   // Bind Domain Layer - Validators
   container.bind<IUserValidator>(TOKENS.UserValidator).toConstantValue(userValidator)
+  // @new-feature:bind — tools/new-feature.sh inserts feature bindings above this line
 
   return container
 }
@@ -129,4 +131,5 @@ export function resetContainer(): void {
   container.bind<ISanitizationService>(TOKENS.SanitizationService).toConstantValue(sanitizationService)
   container.bind<INetworkStatus>(TOKENS.NetworkStatus).toConstantValue(networkStatus)
   container.bind<IUserValidator>(TOKENS.UserValidator).toConstantValue(userValidator)
+  // @new-feature:rebind — keep in step with createContainer(); tools/new-feature.sh inserts here
 }

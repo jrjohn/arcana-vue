@@ -27,7 +27,9 @@ export const TOKENS = {
   I18nService: Symbol.for('I18nService'),
 
   // Domain Layer - Validators
-  UserValidator: Symbol.for('UserValidator')
+  UserValidator: Symbol.for('UserValidator'),
+
+  // @new-feature:tokens — tools/new-feature.sh inserts feature tokens above this line
 } as const
 
 export type TokenKeys = keyof typeof TOKENS
