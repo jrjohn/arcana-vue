@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/jrjohn/arcana-vue/compare/v1.2.59...v1.3.0) (2026-11-24)
+
+
+### Features
+
+* make the template self-explaining to AI coding agents ([eeb3e7e](https://github.com/jrjohn/arcana-vue/commit/eeb3e7e1e79da055dcdf0d1336d2d6b2afd148fb))
+* make the template self-explaining to AI coding agents (AGENTS.md + scaffolding + arch-qube pin) ([#213](https://github.com/jrjohn/arcana-vue/issues/213)) ([eeb3e7e](https://github.com/jrjohn/arcana-vue/commit/eeb3e7e1e79da055dcdf0d1336d2d6b2afd148fb))
+
 ## [1.2.59](https://github.com/jrjohn/arcana-vue/compare/v1.2.58...v1.2.59) (2026-11-20)
 
 
