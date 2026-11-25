@@ -79,7 +79,7 @@ https://github.com/jrjohn/arcana-skills/tree/main/arch-qube-skill. The version i
   1 = fail, 2 = could not run (no Docker / no image) — 2 is **not** a pass. It never falls
   back to `:latest`.
 - Without Docker, on a tree without `node_modules/`, `dist/` and `coverage/`:
-  `pipx run --spec git+https://github.com/jrjohn/arcana-arch-qube.git@v0.5.6 arch-qube scan . --framework vue --no-ai --ci --format json,markdown -o arch-qube-reports --threshold 90`.
+  `pipx run --spec git+https://github.com/jrjohn/arcana-arch-qube.git@v0.5.7 arch-qube scan . --framework vue --no-ai --ci --format json,markdown -o arch-qube-reports --threshold 90`.
 - Report: `arch-qube-reports/arch-qube.md` (summary) and `arch-qube.json` (per rule
   `files_checked` and violations). PASS needs score ≥ threshold **and** zero violations in
   CRITICAL rules — a 99.4 with one critical violation FAILS. A rule under "Not evaluated" is
