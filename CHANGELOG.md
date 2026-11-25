@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/jrjohn/arcana-vue/compare/v1.3.1...v1.4.0) (2026-11-25)
+
+
+### Features
+
+* enforce arch-check locally (Claude Code Stop hook + pre-push) ([#219](https://github.com/jrjohn/arcana-vue/issues/219)) ([83914df](https://github.com/jrjohn/arcana-vue/commit/83914df307ec4c07ae28dcbd0f29a38c05f56373))
+
 ## [1.3.1](https://github.com/jrjohn/arcana-vue/compare/v1.3.0...v1.3.1) (2026-11-25)
 
 
