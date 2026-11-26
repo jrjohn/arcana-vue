@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.3](https://github.com/jrjohn/arcana-vue/compare/v1.4.2...v1.4.3) (2026-11-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/node to v26.6.11 ([#225](https://github.com/jrjohn/arcana-vue/issues/225)) ([ed17889](https://github.com/jrjohn/arcana-vue/commit/ed178896c541a487d02d1d816c51d9e40db5b57e))
+* **deps:** update dependency vue-router to v5.5.2 ([#226](https://github.com/jrjohn/arcana-vue/issues/226)) ([703e34b](https://github.com/jrjohn/arcana-vue/commit/703e34ba27b1b7fd1b0b765c572246fd3a993112))
+
 ## [1.4.2](https://github.com/jrjohn/arcana-vue/compare/v1.4.1...v1.4.2) (2026-11-26)
 
 
