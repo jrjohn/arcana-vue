@@ -1,22 +1,22 @@
 
 # Arcana Vue
 
-[![Architecture Rating](https://img.shields.io/badge/Architecture%20Rating-⭐⭐⭐⭐⭐%2010.0%2F10-brightgreen.svg)](#architecture-evaluation)
-![Vue](https://img.shields.io/badge/Vue-3.5.46-42b883?style=flat-square&logo=vuedotjs)
-![TypeScript](https://img.shields.io/badge/TypeScript-7.0.2-blue?style=flat-square&logo=typescript)
-![Vite](https://img.shields.io/badge/Vite-8.4.0-646CFF?style=flat-square&logo=vite)
+[![Architecture Rating](.github/badges/architecture-rating-10-0-10-brightgreen--a3acccb3.svg)](#architecture-evaluation)
+![Vue](.github/badges/vue-3-5-46-42b883-18448e2f.svg)
+![TypeScript](.github/badges/typescript-7-0-2-blue-041bcf96.svg)
+![Vite](.github/badges/vite-8-4-0-646cff-b2eff99e.svg)
 
 <!-- agent-managed badges START -->
 <p align="center">
-  <a href="https://arcana.boo/sonarqube/dashboard?id=vue-app"><img src="https://img.shields.io/badge/Quality_Gate-OK-brightgreen?style=for-the-badge" alt="Quality Gate"></a>
-  <a href="https://arcana.boo/jenkins/job/vue-app-pipeline-mb/job/main/"><img src="https://img.shields.io/badge/Build-passing-brightgreen?style=for-the-badge" alt="Build"></a>
+  <a href="https://arcana.boo/sonarqube/dashboard?id=vue-app"><img src=".github/badges/quality-gate-ok-brightgreen-7365c32e.svg" alt="Quality Gate"></a>
+  <a href="https://arcana.boo/jenkins/job/vue-app-pipeline-mb/job/main/"><img src=".github/badges/build-passing-brightgreen-f2a434e1.svg" alt="Build"></a>
 </p>
 <!-- agent-managed badges END -->
 <!-- arch-rank START -->
 <p align="center">
-  <img src="https://img.shields.io/badge/arch--qube-100%2F100-blue?style=for-the-badge" alt="arch-qube">
-  <img src="https://img.shields.io/badge/Grade-A%2B-brightgreen?style=for-the-badge" alt="Grade">
-  <img src="https://img.shields.io/badge/Arch_Gate-PASS-brightgreen?style=for-the-badge" alt="Architecture Gate">
+  <img src=".github/badges/arch-qube-100-100-blue-2f391344.svg" alt="arch-qube">
+  <img src=".github/badges/grade-a-brightgreen-1f1e6c73.svg" alt="Grade">
+  <img src=".github/badges/arch-gate-pass-brightgreen-887cab17.svg" alt="Architecture Gate">
 </p>
 <!-- arch-rank END -->
 
